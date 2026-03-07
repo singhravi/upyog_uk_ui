@@ -1,720 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>UPYOG — Uttarakhand Urban Development Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --navy: #0a1628;
-    --deep: #112240;
-    --mid: #1a3a6e;
-    --accent: #00b4d8;
-    --gold: #f4b942;
-    --green: #2ec4b6;
-    --red: #e63946;
-    --purple: #9b5de5;
-    --surface: #0d1f3c;
-    --card: #132847;
-    --border: rgba(0,180,216,0.18);
-    --text: #e8f4f8;
-    --muted: #8ab4c8;
-    --white: #ffffff;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Noto Sans', sans-serif;
-    background: var(--navy);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+:root{
+  --navy:#0a1628;--deep:#112240;--mid:#1a3a6e;--accent:#00b4d8;--gold:#f4b942;
+  --green:#2ec4b6;--red:#e63946;--purple:#9b5de5;--surface:#0d1f3c;
+  --card:#132847;--border:rgba(0,180,216,0.18);--text:#e8f4f8;--muted:#8ab4c8;
+  --white:#ffffff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-  /* ── TOP RIBBON ── */
-  .ribbon {
-    background: var(--mid);
-    border-bottom: 1px solid var(--border);
-    padding: 6px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .ribbon a { color: var(--muted); text-decoration: none; margin-left: 16px; }
-  .ribbon a:hover { color: var(--accent); }
-  .ribbon-left { display: flex; gap: 20px; align-items: center; }
+/* ── RIBBON ── */
+.ribbon{background:var(--mid);border-bottom:1px solid var(--border);padding:5px 32px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--muted);}
+.ribbon a{color:var(--muted);text-decoration:none;margin-left:14px;cursor:pointer;}
+.ribbon a:hover{color:var(--accent);}
 
-  /* ── HEADER ── */
-  header {
-    background: var(--deep);
-    border-bottom: 2px solid var(--accent);
-    padding: 0 32px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-  }
-  .header-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 14px 0;
-    flex-wrap: wrap;
-  }
-  .logo-block { display: flex; align-items: center; gap: 16px; }
-  .logo-emblem {
-    width: 58px; height: 58px;
-    background: linear-gradient(135deg, var(--gold), #e08c0a);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; flex-shrink: 0;
-    box-shadow: 0 0 20px rgba(244,185,66,0.4);
-  }
-  .logo-text h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 2px;
-    line-height: 1.1;
-  }
-  .logo-text .subtitle {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .logo-text .hindi {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 13px;
-    color: var(--accent);
-    margin-top: 2px;
-  }
-  .header-divider {
-    width: 1px; height: 50px;
-    background: var(--border);
-    margin: 0 8px;
-  }
-  .header-stats {
-    display: flex; gap: 24px;
-  }
-  .stat-chip {
-    text-align: center;
-  }
-  .stat-chip .num {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-  }
-  .stat-chip .label {
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-  }
-  nav { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; }
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 8px 14px;
-    border-radius: 6px;
-    transition: all 0.2s;
-    letter-spacing: 0.3px;
-  }
-  nav a:hover, nav a.active { color: var(--white); background: rgba(0,180,216,0.12); }
-  .btn-login {
-    background: var(--accent);
-    color: var(--navy) !important;
-    font-weight: 700 !important;
-    padding: 8px 20px !important;
-    border-radius: 6px !important;
-  }
-  .btn-login:hover { background: #0099b8 !important; }
+/* ── TICKER ── */
+.ticker-wrap{background:rgba(0,180,216,0.06);border-bottom:1px solid var(--border);padding:7px 0;overflow:hidden;white-space:nowrap;}
+.ticker{display:inline-flex;animation:ticker 50s linear infinite;gap:60px;}
+.ticker span{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;}
+.ticker span::before{content:'●';color:var(--accent);font-size:7px;}
+@keyframes ticker{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    padding: 80px 32px 60px;
-    overflow: hidden;
-    background: radial-gradient(ellipse at 30% 50%, rgba(26,58,110,0.6) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(0,180,216,0.08) 0%, transparent 50%);
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300b4d8' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-  .mountain-silhouette {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 200px;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 L0 120 L120 60 L240 100 L360 30 L480 80 L600 10 L720 70 L840 20 L960 65 L1080 35 L1200 75 L1320 45 L1440 80 L1440 200 Z' fill='rgba(10,22,40,0.5)'/%3E%3C/svg%3E") no-repeat bottom center;
-    background-size: cover;
-    pointer-events: none;
-  }
-  .hero-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    position: relative;
-  }
-  .hero-tag {
-    display: inline-block;
-    background: rgba(0,180,216,0.12);
-    border: 1px solid var(--border);
-    color: var(--accent);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  .hero h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: clamp(32px, 4vw, 54px);
-    font-weight: 700;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-  .hero h2 span { color: var(--accent); }
-  .hero p {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 32px;
-  }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent), #0077a8);
-    color: var(--white);
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-    letter-spacing: 0.5px;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,180,216,0.35); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-  }
-  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+/* ── HEADER ── */
+header{background:var(--deep);border-bottom:2px solid var(--accent);padding:0 32px;position:sticky;top:0;z-index:200;box-shadow:0 4px 30px rgba(0,0,0,0.4);}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:12px 0;flex-wrap:wrap;}
+.logo-block{display:flex;align-items:center;gap:14px;cursor:pointer;}
+.logo-emblem{width:54px;height:54px;background:linear-gradient(135deg,var(--gold),#e08c0a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(244,185,66,0.35);}
+.logo-text h1{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:var(--white);letter-spacing:2px;line-height:1.1;}
+.logo-text .subtitle{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.logo-text .hindi{font-family:'Noto Sans Devanagari',sans-serif;font-size:12px;color:var(--accent);margin-top:2px;}
+.hd{width:1px;height:44px;background:var(--border);margin:0 6px;}
+.header-stats{display:flex;gap:20px;}
+.stat-chip .num{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:var(--accent);line-height:1;}
+.stat-chip .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+nav{margin-left:auto;display:flex;gap:3px;flex-wrap:wrap;align-items:center;}
+nav a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:7px 13px;border-radius:6px;transition:all 0.2s;cursor:pointer;}
+nav a:hover,nav a.active{color:var(--white);background:rgba(0,180,216,0.12);}
+.btn-login{background:var(--accent);color:var(--navy)!important;font-weight:700!important;padding:7px 18px!important;border-radius:6px!important;}
+.btn-login:hover{background:#0099b8!important;}
 
-  /* Search box */
-  .search-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  .search-box h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .search-box p { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-  .search-row { display: flex; gap: 10px; }
-  .search-input {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: var(--text);
-    font-size: 14px;
-    font-family: 'Noto Sans', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--muted); }
-  .quick-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-  .quick-link {
-    background: rgba(0,180,216,0.08);
-    border: 1px solid var(--border);
-    color: var(--accent);
-    font-size: 11px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-weight: 500;
-  }
-  .quick-link:hover { background: rgba(0,180,216,0.2); }
+/* ── PAGE WRAPPER ── */
+#app{min-height:calc(100vh - 120px);}
+.page{display:none;animation:fadeUp 0.4s ease forwards;}
+.page.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ULB Stats bar */
-  .ulb-bar {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    gap: 16px;
-    margin-top: 48px;
-    position: relative;
-    flex-wrap: wrap;
-  }
-  .ulb-chip {
-    flex: 1;
-    min-width: 180px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .ulb-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-  .ulb-chip .info .type { font-size: 12px; color: var(--muted); }
-  .ulb-chip .info .count { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); line-height: 1; }
+/* ── SHARED BITS ── */
+.section-inner{max-width:1400px;margin:0 auto;}
+.section-tag{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px;}
+.section-header h2{font-family:'Rajdhani',sans-serif;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--white);line-height:1.1;}
+.section-header p{color:var(--muted);font-size:13px;margin-top:7px;max-width:560px;}
+.glow-line{height:2px;background:linear-gradient(90deg,transparent,var(--accent),var(--green),transparent);opacity:0.5;}
 
-  /* ── SECTIONS ── */
-  section { padding: 60px 32px; }
-  .section-inner { max-width: 1400px; margin: 0 auto; }
-  .section-header { margin-bottom: 40px; }
-  .section-tag {
-    display: inline-block;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .section-header h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: clamp(24px, 3vw, 38px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.1;
-  }
-  .section-header p { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 600px; }
+/* ── BUTTONS ── */
+.btn-primary{background:linear-gradient(135deg,var(--accent),#0077a8);color:var(--white);padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;text-decoration:none;font-family:'Noto Sans',sans-serif;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,180,216,0.32);}
+.btn-secondary{background:transparent;color:var(--text);padding:11px 22px;border-radius:8px;font-size:13px;font-weight:500;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all 0.25s;text-decoration:none;font-family:'Noto Sans',sans-serif;}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
 
-  /* ── SERVICES GRID ── */
-  .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  @media (max-width: 1100px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .category-grid { grid-template-columns: 1fr; } }
+/* ── FORMS ── */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:700px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-size:13px;font-family:'Noto Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted);}
+.form-group select option{background:var(--deep);}
+.form-group textarea{resize:vertical;min-height:90px;}
 
-  .category-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .category-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
-  .cat-header {
-    padding: 20px 20px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .cat-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .cat-header h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.5px;
-  }
-  .cat-services { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
-  .service-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
-  }
-  .service-item:hover { background: rgba(255,255,255,0.05); }
-  .service-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-  .service-info .name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.2;
-  }
-  .service-info .desc {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-    line-height: 1.4;
-  }
-  .service-arrow { margin-left: auto; color: var(--muted); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+/* ── HOME HERO ── */
+.hero{position:relative;padding:70px 32px 50px;overflow:hidden;background:radial-gradient(ellipse at 30% 50%,rgba(26,58,110,0.55) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,180,216,0.07) 0%,transparent 50%);}
+.hero-bg{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300b4d8' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.mountain{position:absolute;bottom:0;left:0;right:0;height:180px;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 180 L0 110 L120 55 L240 90 L360 25 L480 72 L600 8 L720 62 L840 15 L960 58 L1080 28 L1200 68 L1320 38 L1440 72 L1440 180 Z' fill='rgba(10,22,40,0.5)'/%3E%3C/svg%3E") no-repeat bottom center;background-size:cover;pointer-events:none;}
+.hero-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;}
+.hero-tag{display:inline-block;background:rgba(0,180,216,0.1);border:1px solid var(--border);color:var(--accent);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:5px 13px;border-radius:20px;margin-bottom:18px;font-weight:600;}
+.hero h2{font-family:'Rajdhani',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:700;line-height:1.05;color:var(--white);margin-bottom:14px;}
+.hero h2 span{color:var(--accent);}
+.hero p{font-size:14px;color:var(--muted);line-height:1.75;max-width:460px;margin-bottom:28px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.search-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,0.28);}
+.search-box h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:5px;}
+.search-box p{font-size:12px;color:var(--muted);margin-bottom:18px;}
+.search-row{display:flex;gap:8px;}
+.search-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-size:13px;font-family:'Noto Sans',sans-serif;outline:none;transition:border-color 0.2s;}
+.search-input:focus{border-color:var(--accent);}
+.search-input::placeholder{color:var(--muted);}
+.quick-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;}
+.quick-link{background:rgba(0,180,216,0.07);border:1px solid var(--border);color:var(--accent);font-size:11px;padding:4px 11px;border-radius:20px;cursor:pointer;transition:all 0.2s;font-weight:500;}
+.quick-link:hover{background:rgba(0,180,216,0.18);}
+.ulb-bar{max-width:1400px;margin:0 auto;display:flex;gap:14px;margin-top:44px;position:relative;flex-wrap:wrap;}
+.ulb-chip{flex:1;min-width:160px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.ulb-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.ulb-chip .info .type{font-size:11px;color:var(--muted);}
+.ulb-chip .info .count{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--white);line-height:1;}
 
-  /* color themes */
-  .theme-blue .cat-icon { background: rgba(0,180,216,0.15); color: var(--accent); }
-  .theme-blue .cat-header { background: rgba(0,180,216,0.06); }
-  .theme-blue .service-item:hover .name { color: var(--accent); }
+/* ── PLATFORM BAND ── */
+.platform-band{background:linear-gradient(135deg,var(--mid) 0%,#0d2850 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.platform-item{padding:36px 28px;border-right:1px solid var(--border);text-align:center;cursor:pointer;transition:background 0.2s;}
+.platform-item:last-child{border-right:none;}
+.platform-item:hover{background:rgba(255,255,255,0.03);}
+.platform-item .pi-icon{font-size:36px;margin-bottom:14px;}
+.platform-item h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:7px;}
+.platform-item p{font-size:12px;color:var(--muted);line-height:1.6;}
+.badge{display:inline-block;background:rgba(0,180,216,0.1);border:1px solid var(--border);color:var(--accent);font-size:10px;padding:3px 10px;border-radius:20px;margin-top:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;}
 
-  .theme-green .cat-icon { background: rgba(46,196,182,0.15); color: var(--green); }
-  .theme-green .cat-header { background: rgba(46,196,182,0.06); }
-  .theme-green .service-item:hover .name { color: var(--green); }
+/* ── QUICK GRID ── */
+.quick-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.quick-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 14px;text-align:center;cursor:pointer;transition:all 0.25s;text-decoration:none;display:block;}
+.quick-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,180,216,0.14);}
+.quick-card .qc-icon{font-size:26px;margin-bottom:9px;}
+.quick-card .qc-name{font-size:12px;font-weight:600;color:var(--text);line-height:1.3;}
 
-  .theme-orange .cat-icon { background: rgba(244,185,66,0.15); color: var(--gold); }
-  .theme-orange .cat-header { background: rgba(244,185,66,0.06); }
-  .theme-orange .service-item:hover .name { color: var(--gold); }
+/* ── CATEGORY GRID ── */
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.category-card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:transform 0.3s,box-shadow 0.3s;}
+.category-card:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(0,0,0,0.32);}
+.cat-header{padding:18px 18px 14px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--border);}
+.cat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.cat-header h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--white);letter-spacing:0.4px;}
+.cat-services{padding:14px;display:flex;flex-direction:column;gap:5px;}
+.service-item{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;transition:background 0.2s;text-decoration:none;}
+.service-item:hover{background:rgba(255,255,255,0.05);}
+.service-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.service-info .name{font-size:12px;font-weight:600;color:var(--text);line-height:1.2;}
+.service-info .desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35;}
+.service-arrow{margin-left:auto;color:var(--muted);font-size:13px;flex-shrink:0;margin-top:2px;}
+.theme-blue .cat-icon{background:rgba(0,180,216,0.14);color:var(--accent);}
+.theme-blue .cat-header{background:rgba(0,180,216,0.05);}
+.theme-blue .service-item:hover .name{color:var(--accent);}
+.theme-green .cat-icon{background:rgba(46,196,182,0.14);color:var(--green);}
+.theme-green .cat-header{background:rgba(46,196,182,0.05);}
+.theme-green .service-item:hover .name{color:var(--green);}
+.theme-orange .cat-icon{background:rgba(244,185,66,0.14);color:var(--gold);}
+.theme-orange .cat-header{background:rgba(244,185,66,0.05);}
+.theme-orange .service-item:hover .name{color:var(--gold);}
+.theme-purple .cat-icon{background:rgba(155,93,229,0.14);color:var(--purple);}
+.theme-purple .cat-header{background:rgba(155,93,229,0.05);}
+.theme-purple .service-item:hover .name{color:var(--purple);}
 
-  .theme-purple .cat-icon { background: rgba(155,93,229,0.15); color: var(--purple); }
-  .theme-purple .cat-header { background: rgba(155,93,229,0.06); }
-  .theme-purple .service-item:hover .name { color: var(--purple); }
+/* ── ADV CARDS ── */
+.adv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.adv-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;gap:18px;align-items:flex-start;transition:all 0.3s;cursor:pointer;}
+.adv-card:hover{border-color:var(--accent);box-shadow:0 10px 36px rgba(0,180,216,0.1);}
+.adv-icon{width:48px;height:48px;background:linear-gradient(135deg,rgba(0,180,216,0.18),rgba(0,180,216,0.04));border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.adv-body h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:5px;}
+.adv-body p{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.adv-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.adv-tag{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);color:var(--muted);font-size:11px;padding:2px 9px;border-radius:20px;}
 
-  /* ── QUICK SERVICES ── */
-  .quick-services-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .quick-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-  }
-  @media (max-width: 900px) { .quick-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 500px) { .quick-grid { grid-template-columns: repeat(2, 1fr); } }
-  .quick-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 16px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-decoration: none;
-  }
-  .quick-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,180,216,0.15); }
-  .quick-card .qc-icon { font-size: 28px; margin-bottom: 10px; }
-  .quick-card .qc-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; }
+/* ── API LAYER ── */
+.api-layer{background:var(--deep);border:1px solid var(--border);border-radius:14px;padding:22px 28px;margin-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.api-layer .al-label{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;}
+.api-div{width:1px;height:36px;background:var(--border);flex-shrink:0;}
+.api-integrations{display:flex;gap:10px;flex-wrap:wrap;}
+.api-chip{background:rgba(0,180,216,0.07);border:1px solid var(--border);color:var(--text);font-size:12px;padding:7px 14px;border-radius:8px;display:flex;align-items:center;gap:6px;font-weight:500;}
+.api-chip .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-  /* ── PLATFORM BAND ── */
-  .platform-band {
-    background: linear-gradient(135deg, var(--mid) 0%, #0d2850 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .platform-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-  }
-  @media (max-width: 700px) { .platform-grid { grid-template-columns: 1fr; } }
-  .platform-item {
-    padding: 40px 32px;
-    border-right: 1px solid var(--border);
-    text-align: center;
-  }
-  .platform-item:last-child { border-right: none; }
-  .platform-item .pi-icon { font-size: 40px; margin-bottom: 16px; }
-  .platform-item h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  .platform-item p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-  .platform-item .badge {
-    display: inline-block;
-    background: rgba(0,180,216,0.12);
-    border: 1px solid var(--border);
-    color: var(--accent);
-    font-size: 10px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-top: 12px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-  }
+/* ── NOTICES ── */
+.notice-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.np-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;}
+.np-header h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--white);flex:1;}
+.np-header .view-all{font-size:12px;color:var(--accent);cursor:pointer;}
+.np-header .view-all:hover{text-decoration:underline;}
+.notice-list{padding:6px 0;}
+.notice-item{padding:11px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background 0.2s;}
+.notice-item:hover{background:rgba(255,255,255,0.03);}
+.notice-item:last-child{border-bottom:none;}
+.ni-top{display:flex;align-items:center;gap:7px;margin-bottom:3px;}
+.ni-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.ni-badge.new{background:rgba(230,57,70,0.14);color:var(--red);}
+.ni-badge.update{background:rgba(0,180,216,0.14);color:var(--accent);}
+.ni-badge.tender{background:rgba(244,185,66,0.14);color:var(--gold);}
+.ni-title{font-size:12.5px;color:var(--text);line-height:1.4;}
+.ni-date{font-size:11px;color:var(--muted);margin-top:3px;}
 
-  /* ── ADVANCED FEATURES ── */
-  .adv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  @media (max-width: 700px) { .adv-grid { grid-template-columns: 1fr; } }
-  .adv-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    transition: all 0.3s;
-  }
-  .adv-card:hover { border-color: var(--accent); box-shadow: 0 10px 40px rgba(0,180,216,0.1); }
-  .adv-icon {
-    width: 52px; height: 52px;
-    background: linear-gradient(135deg, rgba(0,180,216,0.2), rgba(0,180,216,0.05));
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-  .adv-body h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .adv-body p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
-  .adv-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .adv-tag {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--muted);
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
+/* ── PAGE HEADERS ── */
+.page-hero{padding:44px 32px 36px;background:linear-gradient(135deg,var(--deep) 0%,var(--surface) 100%);border-bottom:1px solid var(--border);}
+.page-hero .section-inner{display:flex;align-items:center;gap:20px;}
+.back-btn{background:rgba(0,180,216,0.09);border:1px solid var(--border);color:var(--accent);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;flex-shrink:0;}
+.back-btn:hover{background:rgba(0,180,216,0.18);}
+.ph-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.ph-text h1{font-family:'Rajdhani',sans-serif;font-size:clamp(22px,3vw,34px);font-weight:700;color:var(--white);}
+.ph-text p{font-size:13px;color:var(--muted);margin-top:4px;}
+.breadcrumb{font-size:12px;color:var(--muted);margin-bottom:12px;}
+.breadcrumb span{color:var(--accent);}
 
-  /* ── API LAYER ── */
-  .api-layer {
-    background: var(--deep);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 32px;
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .api-layer .al-label {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .api-divider { width: 1px; height: 40px; background: var(--border); flex-shrink: 0; }
-  .api-integrations { display: flex; gap: 12px; flex-wrap: wrap; }
-  .api-chip {
-    background: rgba(0,180,216,0.08);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 13px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-  }
-  .api-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* ── INNER PAGE CONTENT ── */
+.inner-page{padding:40px 32px 60px;}
+.inner-cols{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start;}
+.inner-cols.wide{grid-template-columns:1fr;}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;}
+.info-card h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.info-row:last-child{border-bottom:none;}
+.info-row .label{font-size:13px;color:var(--muted);}
+.info-row .value{font-size:13px;font-weight:600;color:var(--text);text-align:right;}
+.info-row .value.accent{color:var(--accent);}
+.info-row .value.green{color:var(--green);}
+.info-row .value.red{color:var(--red);}
+.info-row .value.gold{color:var(--gold);}
+.step-list{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.step{display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:28px;height:28px;border-radius:50%;background:rgba(0,180,216,0.12);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0;}
+.step-body .title{font-size:13px;font-weight:600;color:var(--text);}
+.step-body .desc{font-size:12px;color:var(--muted);margin-top:2px;}
+.fee-table{width:100%;border-collapse:collapse;margin-top:14px;}
+.fee-table th{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+.fee-table td{font-size:13px;color:var(--text);padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.fee-table tr:last-child td{border-bottom:none;}
+.fee-table tr:hover td{background:rgba(255,255,255,0.02);}
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.status-badge.pending{background:rgba(244,185,66,0.12);color:var(--gold);}
+.status-badge.approved{background:rgba(46,196,182,0.12);color:var(--green);}
+.status-badge.rejected{background:rgba(230,57,70,0.12);color:var(--red);}
+.status-badge.processing{background:rgba(0,180,216,0.12);color:var(--accent);}
 
-  /* ── NOTICES ── */
-  .notices-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-  @media (max-width: 800px) { .notices-grid { grid-template-columns: 1fr; } }
-  .notice-panel {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .np-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .np-header h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--white);
-    flex: 1;
-  }
-  .np-header .view-all { font-size: 12px; color: var(--accent); cursor: pointer; }
-  .notice-list { padding: 8px 0; }
-  .notice-item {
-    padding: 12px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .notice-item:hover { background: rgba(255,255,255,0.03); }
-  .notice-item:last-child { border-bottom: none; }
-  .ni-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .ni-badge {
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .ni-badge.new { background: rgba(230,57,70,0.15); color: var(--red); }
-  .ni-badge.update { background: rgba(0,180,216,0.15); color: var(--accent); }
-  .ni-badge.tender { background: rgba(244,185,66,0.15); color: var(--gold); }
-  .ni-title { font-size: 13px; color: var(--text); line-height: 1.4; }
-  .ni-date { font-size: 11px; color: var(--muted); margin-top: 4px; }
+/* ── TRACKER ── */
+.track-result{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px;margin-top:24px;display:none;}
+.track-result.show{display:block;}
+.track-progress{display:flex;gap:0;margin:24px 0;position:relative;}
+.track-progress::before{content:'';position:absolute;top:14px;left:10%;right:10%;height:2px;background:var(--border);z-index:0;}
+.track-step{flex:1;text-align:center;position:relative;z-index:1;}
+.ts-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:13px;transition:all 0.3s;}
+.ts-dot.done{background:var(--green);border-color:var(--green);color:var(--white);}
+.ts-dot.active{background:var(--accent);border-color:var(--accent);color:var(--white);box-shadow:0 0 12px rgba(0,180,216,0.4);}
+.ts-label{font-size:11px;color:var(--muted);}
+.ts-label.done,.ts-label.active{color:var(--text);}
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-    padding: 48px 32px 24px;
-  }
-  .footer-grid {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-  }
-  @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-  .footer-brand .fb-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .footer-brand .fb-logo .em { width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), #e08c0a); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-  .footer-brand .fb-logo span { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); }
-  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 280px; }
-  .footer-col h4 { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-col ul li a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-col ul li a:hover { color: var(--accent); }
-  .footer-bottom {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: var(--muted);
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .footer-bottom a { color: var(--muted); text-decoration: none; }
-  .footer-bottom a:hover { color: var(--accent); }
+/* ── ULB LIST ── */
+.ulb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.ulb-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all 0.25s;text-decoration:none;display:block;}
+.ulb-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.ulb-card .uc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.ulb-card .uc-type{font-size:11px;padding:2px 8px;border-radius:20px;display:inline-flex;font-weight:600;margin-bottom:8px;}
+.uc-type.nigam{background:rgba(230,57,70,0.12);color:var(--red);}
+.uc-type.palika{background:rgba(244,185,66,0.12);color:var(--gold);}
+.uc-type.panchayat{background:rgba(46,196,182,0.12);color:var(--green);}
+.ulb-card .uc-dist{font-size:11px;color:var(--muted);}
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .fade-up { animation: fadeUp 0.6s ease forwards; }
-  .fade-up-1 { animation-delay: 0.1s; opacity: 0; }
-  .fade-up-2 { animation-delay: 0.2s; opacity: 0; }
-  .fade-up-3 { animation-delay: 0.3s; opacity: 0; }
-  .fade-up-4 { animation-delay: 0.4s; opacity: 0; }
+/* ── TENDERS ── */
+.tender-grid{display:flex;flex-direction:column;gap:14px;}
+.tender-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:border-color 0.25s;}
+.tender-card:hover{border-color:var(--accent);}
+.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.tc-id{font-size:11px;color:var(--muted);}
+.tc-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.tc-meta{display:flex;gap:20px;flex-wrap:wrap;}
+.tc-meta span{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.tc-meta strong{color:var(--text);}
 
-  /* Scrolling ticker */
-  .ticker-wrap {
-    background: var(--mid);
-    border-bottom: 1px solid var(--border);
-    padding: 8px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker {
-    display: inline-flex;
-    animation: ticker 40s linear infinite;
-    gap: 60px;
-  }
-  .ticker span { font-size: 12px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
-  .ticker span::before { content: '●'; color: var(--accent); font-size: 8px; }
-  @keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+/* ── GIS / DASHBOARD ── */
+.gis-map-placeholder{background:var(--card);border:1px solid var(--border);border-radius:14px;height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden;}
+.gis-map-placeholder::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(0,180,216,0.08),transparent 60%),radial-gradient(circle at 70% 70%,rgba(46,196,182,0.05),transparent 50%);}
+.gis-icon{font-size:56px;}
+.gis-label{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--white);}
+.gis-sub{font-size:13px;color:var(--muted);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;}
+.stat-box .sb-num{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;color:var(--accent);line-height:1;}
+.stat-box .sb-label{font-size:12px;color:var(--muted);margin-top:4px;}
 
-  /* Glow line */
-  .glow-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--green), transparent);
-    margin: 0;
-    opacity: 0.6;
-  }
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--deep);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:460px;width:90%;position:relative;animation:fadeUp 0.3s ease;}
+.modal h2{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:20px;}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.07);border:none;color:var(--muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{color:var(--white);}
+
+/* ── SUCCESS ── */
+.success-card{background:rgba(46,196,182,0.07);border:1px solid rgba(46,196,182,0.25);border-radius:14px;padding:28px;text-align:center;display:none;}
+.success-card.show{display:block;}
+.success-icon{font-size:52px;margin-bottom:14px;}
+.success-card h3{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--green);margin-bottom:8px;}
+.success-card p{font-size:13px;color:var(--muted);line-height:1.6;}
+.ref-num{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 20px;display:inline-block;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--accent);margin:14px 0;letter-spacing:2px;}
+
+/* ── FOOTER ── */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:44px 32px 22px;}
+.footer-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:36px;border-bottom:1px solid var(--border);margin-bottom:22px;}
+.footer-brand .fb-logo{display:flex;align-items:center;gap:11px;margin-bottom:14px;cursor:pointer;}
+.footer-brand .fb-logo .em{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),#e08c0a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.footer-brand .fb-logo span{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:var(--white);}
+.footer-brand p{font-size:12.5px;color:var(--muted);line-height:1.7;max-width:270px;}
+.footer-col h4{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--white);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col ul li a{font-size:12.5px;color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--accent);}
+.footer-bottom{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--muted);flex-wrap:wrap;gap:7px;}
+.footer-bottom a{color:var(--muted);text-decoration:none;cursor:pointer;}
+.footer-bottom a:hover{color:var(--accent);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){.category-grid{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr}.platform-grid{grid-template-columns:1fr}.quick-grid{grid-template-columns:repeat(3,1fr)}.inner-cols{grid-template-columns:1fr}.ulb-grid{grid-template-columns:repeat(2,1fr)}.stats-row{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.quick-grid{grid-template-columns:repeat(2,1fr)}.category-grid{grid-template-columns:1fr}.adv-grid{grid-template-columns:1fr}.ulb-grid{grid-template-columns:1fr}.header-stats{display:none}nav a{padding:6px 9px;font-size:12px}.footer-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <!-- TOP RIBBON -->
 <div class="ribbon">
-  <div class="ribbon-left">
+  <div style="display:flex;gap:18px;align-items:center;">
     <span>🇮🇳 Government of Uttarakhand</span>
     <span>|</span>
     <span>Urban Development Department</span>
   </div>
   <div>
-    <a href="#">Screen Reader</a>
-    <a href="#">हिंदी</a>
-    <a href="#">English</a>
-    <a href="#">A-</a>
-    <a href="#">A</a>
-    <a href="#">A+</a>
-    <a href="#">Sitemap</a>
-    <a href="#">Help</a>
+    <a onclick="showPage('accessibility')">Screen Reader</a>
+    <a onclick="setLang('hi')">हिंदी</a>
+    <a onclick="setLang('en')">English</a>
+    <a onclick="adjustFont(-1)">A-</a>
+    <a onclick="adjustFont(0)">A</a>
+    <a onclick="adjustFont(1)">A+</a>
+    <a onclick="showPage('sitemap')">Sitemap</a>
+    <a onclick="showPage('help')">Help</a>
   </div>
 </div>
 
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <span>Property Tax Online Payment Portal Now Available for All 108 ULBs</span>
-    <span>Birth & Death Certificates — QR-Coded Documents with CRS Integration</span>
-    <span>UPYOG Mobile App: Download Now on iOS & Android</span>
+    <span>Property Tax Online Payment Now Available for All 108 ULBs</span>
+    <span>Birth &amp; Death Certificates — QR-Coded Documents with CRS Integration</span>
+    <span>UPYOG Mobile App: Download Now on iOS &amp; Android</span>
     <span>Public Grievance (PGR) — Track your complaint with real-time updates</span>
     <span>Desludging Services: Book Online with Vehicle Tracking</span>
     <span>UMEED National Dashboard — Multi-ULB Monitoring Live</span>
-    <span>Street Vending Biometric Registration Open — Register at your nearest ULB</span>
-    <span>Building Plan (OBPS) — Automatic Scrutiny & Online Approval Now Active</span>
+    <span>Street Vending Biometric Registration Open</span>
+    <span>Building Plan (OBPS) — Automatic Scrutiny &amp; Online Approval Active</span>
   </div>
 </div>
 
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="logo-block">
+    <div class="logo-block" onclick="showPage('home')">
       <div class="logo-emblem">🏔️</div>
       <div class="logo-text">
         <h1>UPYOG</h1>
@@ -722,526 +354,962 @@
         <div class="subtitle">Urban Governance Platform · 108 ULBs</div>
       </div>
     </div>
-    <div class="header-divider"></div>
+    <div class="hd"></div>
     <div class="header-stats">
       <div class="stat-chip"><div class="num">108</div><div class="label">Urban Bodies</div></div>
       <div class="stat-chip"><div class="num">12</div><div class="label">Core Modules</div></div>
       <div class="stat-chip"><div class="num">24/7</div><div class="label">Service Access</div></div>
     </div>
     <nav>
-      <a href="#" class="active">Home</a>
-      <a href="#services">Services</a>
-      <a href="#grievance">Grievance</a>
-      <a href="#tenders">Tenders</a>
-      <a href="#about">About</a>
-      <a href="#" class="btn-login">Employee Login</a>
+      <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+      <a onclick="showPage('services')" id="nav-services">Services</a>
+      <a onclick="showPage('grievance')" id="nav-grievance">Grievance</a>
+      <a onclick="showPage('tenders')" id="nav-tenders">Tenders</a>
+      <a onclick="showPage('about')" id="nav-about">About</a>
+      <a onclick="openLoginModal()" class="btn-login">Employee Login</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div>
-      <div class="hero-tag fade-up fade-up-1">🏛️ State-Wide Urban Governance Platform</div>
-      <h2 class="fade-up fade-up-2">
-        Smart Urban Services<br/>for <span>Uttarakhand</span> Citizens
-      </h2>
-      <p class="fade-up fade-up-3">
-        Access all municipal services — from property tax and trade licenses to birth certificates and grievance redressal — through a single, unified platform serving all 108 Urban Local Bodies across the state.
-      </p>
-      <div class="hero-actions fade-up fade-up-4">
-        <a href="#services" class="btn-primary">🚀 Access Services</a>
-        <a href="#" class="btn-secondary">📱 Download App</a>
+<!-- ════════════════════════════════════ -->
+<!-- APP -->
+<!-- ════════════════════════════════════ -->
+<div id="app">
+
+<!-- ── HOME ── -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div>
+        <div class="hero-tag">🏛️ State-Wide Urban Governance Platform</div>
+        <h2>Smart Urban Services<br/>for <span>Uttarakhand</span> Citizens</h2>
+        <p>Access all municipal services — from property tax and trade licenses to birth certificates and grievance redressal — through a single unified platform serving all 108 Urban Local Bodies.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('services')">🚀 Access Services</button>
+          <button class="btn-secondary" onclick="showPage('app-download')">📱 Download App</button>
+        </div>
+      </div>
+      <div class="search-box">
+        <h3>🔍 Find a Service or ULB</h3>
+        <p>Search for any municipal service or your Urban Local Body</p>
+        <div class="search-row">
+          <input class="search-input" id="hero-search" type="text" placeholder="e.g. Property Tax, Birth Certificate..."/>
+          <button class="btn-primary" onclick="doSearch()" style="padding:11px 18px;font-size:12px;">Search</button>
+        </div>
+        <div id="search-results" style="margin-top:10px;font-size:13px;color:var(--muted);"></div>
+        <div class="quick-links">
+          <div class="quick-link" onclick="showPage('property-tax')">Property Tax</div>
+          <div class="quick-link" onclick="showPage('birth-cert')">Birth Certificate</div>
+          <div class="quick-link" onclick="showPage('trade-license')">Trade License</div>
+          <div class="quick-link" onclick="showPage('grievance')">Grievance</div>
+          <div class="quick-link" onclick="showPage('building-plan')">Building Plan</div>
+          <div class="quick-link" onclick="showPage('water-connection')">Water Connection</div>
+        </div>
       </div>
     </div>
-    <div class="search-box fade-up fade-up-3">
-      <h3>🔍 Find a Service or ULB</h3>
-      <p>Search for any municipal service or your Urban Local Body</p>
-      <div class="search-row">
-        <input class="search-input" type="text" placeholder="e.g. Property Tax, Birth Certificate, Trade License..." />
-        <button class="btn-primary" style="white-space:nowrap; padding: 12px 20px; font-size:13px;">Search</button>
-      </div>
-      <div class="quick-links">
-        <div class="quick-link">Property Tax</div>
-        <div class="quick-link">Birth Certificate</div>
-        <div class="quick-link">Trade License</div>
-        <div class="quick-link">Grievance</div>
-        <div class="quick-link">Building Plan</div>
-        <div class="quick-link">Water Connection</div>
+    <div class="ulb-bar">
+      <div class="ulb-chip" style="cursor:pointer" onclick="showPage('ulbs','nigam')"><div class="ulb-dot" style="background:#e63946;"></div><div class="info"><div class="type">Nagar Nigam</div><div class="count">9</div></div></div>
+      <div class="ulb-chip" style="cursor:pointer" onclick="showPage('ulbs','palika')"><div class="ulb-dot" style="background:#f4b942;"></div><div class="info"><div class="type">Nagar Palika</div><div class="count">41</div></div></div>
+      <div class="ulb-chip" style="cursor:pointer" onclick="showPage('ulbs','panchayat')"><div class="ulb-dot" style="background:#2ec4b6;"></div><div class="info"><div class="type">Nagar Panchayat</div><div class="count">58</div></div></div>
+      <div class="ulb-chip" style="cursor:pointer" onclick="showPage('ulbs')"><div class="ulb-dot" style="background:#9b5de5;"></div><div class="info"><div class="type">Total ULBs</div><div class="count">108</div></div></div>
+      <div class="ulb-chip"><div class="ulb-dot" style="background:#00b4d8;animation:pulse 2s infinite;"></div><div class="info"><div class="type">Services Online</div><div class="count">24/7</div></div></div>
+    </div>
+    <div class="mountain"></div>
+  </section>
+  <div class="glow-line"></div>
+
+  <!-- Platform band -->
+  <div class="platform-band">
+    <div class="section-inner" style="padding:0 0;">
+      <div class="platform-grid">
+        <div class="platform-item" onclick="showPage('services')">
+          <div class="pi-icon">🌐</div>
+          <h3>Citizen Web Portal</h3>
+          <p>Full service access in Hindi &amp; English. Pay taxes, apply for certificates, track applications.</p>
+          <div class="badge">Hindi / English</div>
+        </div>
+        <div class="platform-item" onclick="showPage('app-download')">
+          <div class="pi-icon">📱</div>
+          <h3>UPYOG Mobile App</h3>
+          <p>For citizens and field staff. Works offline for hilly terrains with auto-sync when connected.</p>
+          <div class="badge">iOS &amp; Android</div>
+        </div>
+        <div class="platform-item" onclick="openLoginModal()">
+          <div class="pi-icon">🖥️</div>
+          <h3>ULB Employee Dashboard</h3>
+          <p>Real-time operations dashboard for municipal staff — manage applications, track grievances.</p>
+          <div class="badge">Staff Only</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ULB stats -->
-  <div class="ulb-bar">
-    <div class="ulb-chip">
-      <div class="ulb-dot" style="background:#e63946;"></div>
-      <div class="info"><div class="type">Nagar Nigam</div><div class="count">9</div></div>
-    </div>
-    <div class="ulb-chip">
-      <div class="ulb-dot" style="background:#f4b942;"></div>
-      <div class="info"><div class="type">Nagar Palika</div><div class="count">41</div></div>
-    </div>
-    <div class="ulb-chip">
-      <div class="ulb-dot" style="background:#2ec4b6;"></div>
-      <div class="info"><div class="type">Nagar Panchayat</div><div class="count">58</div></div>
-    </div>
-    <div class="ulb-chip">
-      <div class="ulb-dot" style="background:#9b5de5;"></div>
-      <div class="info"><div class="type">Total ULBs</div><div class="count">108</div></div>
-    </div>
-    <div class="ulb-chip">
-      <div class="ulb-dot" style="background:#00b4d8; animation: pulse 2s infinite;"></div>
-      <div class="info"><div class="type">Services Online</div><div class="count">24/7</div></div>
-    </div>
-  </div>
-  <div class="mountain-silhouette"></div>
-</section>
-
-<div class="glow-line"></div>
-
-<!-- ACCESS PLATFORMS -->
-<div class="platform-band">
-  <div class="section-inner">
-    <div class="platform-grid">
-      <div class="platform-item">
-        <div class="pi-icon">🌐</div>
-        <h3>Citizen Web Portal</h3>
-        <p>Full service access in Hindi & English. Pay taxes, apply for certificates, track applications and more.</p>
-        <div class="badge">Hindi / English</div>
+  <!-- Quick services -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 32px;">
+    <div class="section-inner">
+      <div class="section-header" style="margin-bottom:28px;">
+        <div class="section-tag">⚡ Frequently Used</div>
+        <h2>Quick Access Services</h2>
+        <p>Most commonly accessed citizen services, available 24×7</p>
       </div>
-      <div class="platform-item">
-        <div class="pi-icon">📱</div>
-        <h3>UPYOG Mobile App</h3>
-        <p>For citizens and field staff. Works offline for hilly terrains with auto-sync when connectivity resumes.</p>
-        <div class="badge">iOS & Android</div>
+      <div class="quick-grid">
+        <a class="quick-card" onclick="showPage('property-tax')"><div class="qc-icon">🏠</div><div class="qc-name">Pay Property Tax</div></a>
+        <a class="quick-card" onclick="showPage('birth-cert')"><div class="qc-icon">📜</div><div class="qc-name">Birth Certificate</div></a>
+        <a class="quick-card" onclick="showPage('death-cert')"><div class="qc-icon">📋</div><div class="qc-name">Death Certificate</div></a>
+        <a class="quick-card" onclick="showPage('trade-license')"><div class="qc-icon">🏪</div><div class="qc-name">Trade License</div></a>
+        <a class="quick-card" onclick="showPage('grievance')"><div class="qc-icon">📣</div><div class="qc-name">File Grievance</div></a>
+        <a class="quick-card" onclick="showPage('building-plan')"><div class="qc-icon">🏗️</div><div class="qc-name">Building Plan</div></a>
+        <a class="quick-card" onclick="showPage('water-connection')"><div class="qc-icon">💧</div><div class="qc-name">New Water Connection</div></a>
+        <a class="quick-card" onclick="showPage('desludging')"><div class="qc-icon">🚛</div><div class="qc-name">Book Desludging</div></a>
+        <a class="quick-card" onclick="showPage('streetlight')"><div class="qc-icon">💡</div><div class="qc-name">Streetlight Complaint</div></a>
+        <a class="quick-card" onclick="showPage('street-vending')"><div class="qc-icon">🛒</div><div class="qc-name">Street Vending Reg.</div></a>
+        <a class="quick-card" onclick="showPage('track')"><div class="qc-icon">📊</div><div class="qc-name">Track Application</div></a>
+        <a class="quick-card" onclick="showPage('advertisement')"><div class="qc-icon">📢</div><div class="qc-name">Advertisement Reg.</div></a>
       </div>
-      <div class="platform-item">
-        <div class="pi-icon">🖥️</div>
-        <h3>ULB Employee Dashboard</h3>
-        <p>Real-time operations dashboard for municipal staff — manage applications, track grievances, generate reports.</p>
-        <div class="badge">Staff Only</div>
+    </div>
+  </section>
+
+  <!-- Core Modules -->
+  <section style="padding:56px 32px;">
+    <div class="section-inner">
+      <div class="section-header" style="margin-bottom:32px;">
+        <div class="section-tag">🧩 Core Functional Modules</div>
+        <h2>All Municipal Services</h2>
+        <p>Comprehensive services across Revenue, Infrastructure, Public Health, and Administration</p>
+      </div>
+      <div class="category-grid">
+        <div class="category-card theme-blue">
+          <div class="cat-header"><div class="cat-icon">💰</div><div><h3>Revenue &amp; Finance</h3><div style="font-size:11px;color:var(--muted);">3 modules</div></div></div>
+          <div class="cat-services">
+            <a class="service-item" onclick="showPage('property-tax')"><div class="service-icon">🏠</div><div class="service-info"><div class="name">Property Tax</div><div class="desc">Assessment, Online Payment, GIS Mapping</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('trade-license')"><div class="service-icon">🏪</div><div class="service-info"><div class="name">Trade License</div><div class="desc">Issuance, Renewal, Fee Calculation</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('accounting')"><div class="service-icon">📊</div><div class="service-info"><div class="name">Municipal Accounting</div><div class="desc">Double Entry System, Budgeting, Reports</div></div><div class="service-arrow">›</div></a>
+          </div>
+        </div>
+        <div class="category-card theme-green">
+          <div class="cat-header"><div class="cat-icon">🏗️</div><div><h3>Infrastructure &amp; Utilities</h3><div style="font-size:11px;color:var(--muted);">3 modules</div></div></div>
+          <div class="cat-services">
+            <a class="service-item" onclick="showPage('water-connection')"><div class="service-icon">💧</div><div class="service-info"><div class="name">Water &amp; Sewerage</div><div class="desc">New Connection, Billing, Fault Reporting</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('building-plan')"><div class="service-icon">🏢</div><div class="service-info"><div class="name">Building Plan (OBPS)</div><div class="desc">Auto Scrutiny (DCR), NCC Workflow, Safety</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('streetlight')"><div class="service-icon">💡</div><div class="service-info"><div class="name">Streetlights</div><div class="desc">Fault Logging, Management</div></div><div class="service-arrow">›</div></a>
+          </div>
+        </div>
+        <div class="category-card theme-orange">
+          <div class="cat-header"><div class="cat-icon">🏥</div><div><h3>Public Health &amp; Welfare</h3><div style="font-size:11px;color:var(--muted);">3 modules</div></div></div>
+          <div class="cat-services">
+            <a class="service-item" onclick="showPage('birth-cert')"><div class="service-icon">📜</div><div class="service-info"><div class="name">Birth &amp; Death Certificates</div><div class="desc">CRS Integration, QR-Coded Documents</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('grievance')"><div class="service-icon">📣</div><div class="service-info"><div class="name">Public Grievance (PGR)</div><div class="desc">SBM Support, Photo/GPS Logging, SLA Tracking</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('desludging')"><div class="service-icon">🚛</div><div class="service-info"><div class="name">Desludging</div><div class="desc">Request Booking, Vehicle Tracking, STP</div></div><div class="service-arrow">›</div></a>
+          </div>
+        </div>
+        <div class="category-card theme-purple">
+          <div class="cat-header"><div class="cat-icon">🏛️</div><div><h3>Administration &amp; Planning</h3><div style="font-size:11px;color:var(--muted);">3 modules</div></div></div>
+          <div class="cat-services">
+            <a class="service-item" onclick="showPage('asset-mgmt')"><div class="service-icon">🏗️</div><div class="service-info"><div class="name">Asset Management</div><div class="desc">Inventory (Land/Buildings), Maintenance</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('street-vending')"><div class="service-icon">🛒</div><div class="service-info"><div class="name">Street Vending</div><div class="desc">Biometric Registration, Zone Mapping</div></div><div class="service-arrow">›</div></a>
+            <a class="service-item" onclick="showPage('advertisement')"><div class="service-icon">📢</div><div class="service-info"><div class="name">Advertisement Management</div><div class="desc">Hoarding Auction, Revenue Tracking</div></div><div class="service-arrow">›</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advanced + Notices -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);padding:56px 32px;">
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;" id="adv-notices-grid">
+        <div>
+          <div class="section-header" style="margin-bottom:22px;"><div class="section-tag">🔬 Data &amp; Advanced</div><h2>Platform Intelligence</h2></div>
+          <div class="adv-grid">
+            <div class="adv-card" onclick="showPage('dashboard')"><div class="adv-icon">📊</div><div class="adv-body"><h3>UMEED Dashboard</h3><p>Multi-ULB monitoring and MIS analytics with real-time state-wide tracking.</p><div class="adv-tags"><span class="adv-tag">Multi-ULB</span><span class="adv-tag">Real-time</span></div></div></div>
+            <div class="adv-card" onclick="showPage('gis')"><div class="adv-icon">🗺️</div><div class="adv-body"><h3>GIS Integration</h3><p>Urban planning and spatial analysis across all urban local bodies.</p><div class="adv-tags"><span class="adv-tag">Spatial</span><span class="adv-tag">GIS</span></div></div></div>
+            <div class="adv-card" onclick="showPage('app-download')"><div class="adv-icon">📴</div><div class="adv-body"><h3>Offline &amp; Field Tools</h3><p>Works in hilly terrains, syncs with central data automatically.</p><div class="adv-tags"><span class="adv-tag">Offline</span><span class="adv-tag">Sync</span></div></div></div>
+            <div class="adv-card" onclick="showPage('integrations')"><div class="adv-icon">🔗</div><div class="adv-body"><h3>Integration Gateways</h3><p>Apuni Sarkar, DigiLocker, and Payment gateway integrations.</p><div class="adv-tags"><span class="adv-tag">DigiLocker</span><span class="adv-tag">Payment</span></div></div></div>
+          </div>
+          <div class="api-layer">
+            <div class="al-label">↔ Centralized UDD Data Hub &amp; API Layer</div>
+            <div class="api-div"></div>
+            <div class="api-integrations">
+              <div class="api-chip"><div class="dot"></div>Apuni Sarkar</div>
+              <div class="api-chip"><div class="dot"></div>DigiLocker</div>
+              <div class="api-chip"><div class="dot"></div>Payment Gateway</div>
+              <div class="api-chip"><div class="dot"></div>CRS</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-header" style="margin-bottom:22px;"><div class="section-tag">📢 Updates</div><h2>Latest Notices</h2></div>
+          <div class="notice-panel">
+            <div class="np-header"><h3>Notices &amp; Circulars</h3><span class="view-all" onclick="showPage('notices')">View All →</span></div>
+            <div class="notice-list">
+              <div class="notice-item" onclick="showPage('notices')"><div class="ni-top"><span class="ni-badge new">New</span></div><div class="ni-title">UPYOG Property Tax Assessment — Updated Guidelines for FY 2025-26</div><div class="ni-date">05 March 2026</div></div>
+              <div class="notice-item" onclick="showPage('tenders')"><div class="ni-top"><span class="ni-badge tender">Tender</span></div><div class="ni-title">Advertisement Hoarding Auction — Dehradun Nagar Nigam, Batch 12</div><div class="ni-date">03 March 2026</div></div>
+              <div class="notice-item" onclick="showPage('notices')"><div class="ni-top"><span class="ni-badge update">Update</span></div><div class="ni-title">OBPS Building Plan Approval — Revised NCC Workflow Effective Immediately</div><div class="ni-date">28 Feb 2026</div></div>
+              <div class="notice-item" onclick="showPage('notices')"><div class="ni-top"><span class="ni-badge new">New</span></div><div class="ni-title">Street Vending Biometric Registration Drive — 58 Nagar Panchayats</div><div class="ni-date">25 Feb 2026</div></div>
+              <div class="notice-item" onclick="showPage('notices')"><div class="ni-top"><span class="ni-badge update">Update</span></div><div class="ni-title">Desludging Vehicle Tracking System — Enhanced GPS Monitoring Deployed</div><div class="ni-date">20 Feb 2026</div></div>
+            </div>
+          </div>
+          <div class="notice-panel" style="margin-top:18px;">
+            <div class="np-header"><h3>🎯 Track Your Application</h3></div>
+            <div style="padding:18px;">
+              <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;">Enter your application or grievance ID</p>
+              <div class="search-row">
+                <input class="search-input" id="home-track-id" type="text" placeholder="e.g. UPYOG/2026/PT/12345"/>
+                <button class="btn-primary" onclick="goTrack()" style="padding:11px 15px;font-size:12px;">Track</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /home -->
+
+<!-- ── SERVICES PAGE ── -->
+<div id="page-services" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🧩</div><div class="ph-text"><h1>All Services</h1><p>Complete list of municipal services across all 108 ULBs</p></div></div></div>
+  <div class="inner-page">
+    <div class="section-inner">
+      <div class="section-header" style="margin-bottom:28px;"><div class="section-tag">🔍 Browse by Category</div><h2>Municipal Services</h2></div>
+      <div class="category-grid" style="margin-bottom:40px;">
+        <div class="category-card theme-blue"><div class="cat-header"><div class="cat-icon">💰</div><div><h3>Revenue &amp; Finance</h3></div></div><div class="cat-services"><a class="service-item" onclick="showPage('property-tax')"><div class="service-icon">🏠</div><div class="service-info"><div class="name">Property Tax</div><div class="desc">Assessment, Online Payment, GIS Mapping</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('trade-license')"><div class="service-icon">🏪</div><div class="service-info"><div class="name">Trade License</div><div class="desc">Issuance, Renewal, Fee Calculation</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('accounting')"><div class="service-icon">📊</div><div class="service-info"><div class="name">Municipal Accounting</div><div class="desc">Double Entry, Budgeting, Reports</div></div><div class="service-arrow">›</div></a></div></div>
+        <div class="category-card theme-green"><div class="cat-header"><div class="cat-icon">🏗️</div><div><h3>Infrastructure &amp; Utilities</h3></div></div><div class="cat-services"><a class="service-item" onclick="showPage('water-connection')"><div class="service-icon">💧</div><div class="service-info"><div class="name">Water &amp; Sewerage</div><div class="desc">New Connection, Billing, Fault Reporting</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('building-plan')"><div class="service-icon">🏢</div><div class="service-info"><div class="name">Building Plan (OBPS)</div><div class="desc">Auto Scrutiny, NCC Workflow</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('streetlight')"><div class="service-icon">💡</div><div class="service-info"><div class="name">Streetlights</div><div class="desc">Fault Logging, Management</div></div><div class="service-arrow">›</div></a></div></div>
+        <div class="category-card theme-orange"><div class="cat-header"><div class="cat-icon">🏥</div><div><h3>Public Health &amp; Welfare</h3></div></div><div class="cat-services"><a class="service-item" onclick="showPage('birth-cert')"><div class="service-icon">📜</div><div class="service-info"><div class="name">Birth Certificate</div><div class="desc">CRS Integration, QR-Coded</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('death-cert')"><div class="service-icon">📋</div><div class="service-info"><div class="name">Death Certificate</div><div class="desc">CRS Integration, QR-Coded</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('grievance')"><div class="service-icon">📣</div><div class="service-info"><div class="name">Public Grievance</div><div class="desc">SBM Support, SLA Tracking</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('desludging')"><div class="service-icon">🚛</div><div class="service-info"><div class="name">Desludging</div><div class="desc">Booking, Vehicle Tracking</div></div><div class="service-arrow">›</div></a></div></div>
+        <div class="category-card theme-purple"><div class="cat-header"><div class="cat-icon">🏛️</div><div><h3>Administration &amp; Planning</h3></div></div><div class="cat-services"><a class="service-item" onclick="showPage('asset-mgmt')"><div class="service-icon">🏗️</div><div class="service-info"><div class="name">Asset Management</div><div class="desc">Inventory, Maintenance</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('street-vending')"><div class="service-icon">🛒</div><div class="service-info"><div class="name">Street Vending</div><div class="desc">Biometric Reg., Zone Mapping</div></div><div class="service-arrow">›</div></a><a class="service-item" onclick="showPage('advertisement')"><div class="service-icon">📢</div><div class="service-info"><div class="name">Advertisement</div><div class="desc">Hoarding Auction, Revenue</div></div><div class="service-arrow">›</div></a></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- QUICK SERVICES -->
-<section class="quick-services-section" id="services">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">⚡ Frequently Used</div>
-      <h2>Quick Access Services</h2>
-      <p>Most commonly accessed citizen services, available 24×7</p>
-    </div>
-    <div class="quick-grid">
-      <a class="quick-card" href="#">
-        <div class="qc-icon">🏠</div>
-        <div class="qc-name">Pay Property Tax</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">📜</div>
-        <div class="qc-name">Birth Certificate</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">📋</div>
-        <div class="qc-name">Death Certificate</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">🏪</div>
-        <div class="qc-name">Trade License</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">📣</div>
-        <div class="qc-name">File Grievance</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">🏗️</div>
-        <div class="qc-name">Building Plan</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">💧</div>
-        <div class="qc-name">New Water Connection</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">🚛</div>
-        <div class="qc-name">Book Desludging</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">💡</div>
-        <div class="qc-name">Streetlight Complaint</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">🛒</div>
-        <div class="qc-name">Street Vending Reg.</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">📊</div>
-        <div class="qc-name">Track Application</div>
-      </a>
-      <a class="quick-card" href="#">
-        <div class="qc-icon">📣</div>
-        <div class="qc-name">Advertisement Reg.</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CORE MODULES -->
-<section>
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">🧩 Core Functional Modules</div>
-      <h2>All Municipal Services</h2>
-      <p>Comprehensive services across Revenue, Infrastructure, Public Health, and Administration</p>
-    </div>
-    <div class="category-grid">
-
-      <!-- Revenue & Finance -->
-      <div class="category-card theme-blue">
-        <div class="cat-header">
-          <div class="cat-icon">💰</div>
-          <div>
-            <h3>Revenue & Finance</h3>
-            <div style="font-size:11px; color:var(--muted);">3 modules</div>
-          </div>
-        </div>
-        <div class="cat-services">
-          <a class="service-item" href="#">
-            <div class="service-icon">🏠</div>
-            <div class="service-info">
-              <div class="name">Property Tax</div>
-              <div class="desc">Assessment, Online Payment, GIS Mapping</div>
+<!-- ── PROPERTY TAX ── -->
+<div id="page-property-tax" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🏠</div><div class="ph-text"><div class="breadcrumb">Home › Revenue &amp; Finance › <span>Property Tax</span></div><h1>Property Tax</h1><p>Assessment, Online Payment &amp; GIS Mapping for all ULBs</p></div></div></div>
+  <div class="inner-page">
+    <div class="section-inner">
+      <div class="inner-cols">
+        <div>
+          <div class="info-card">
+            <h3>💳 Pay Property Tax Online</h3>
+            <div class="form-row"><div class="form-group"><label>ULB / Nagar Palika</label><select id="pt-ulb"><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option><option>Rudrapur Nagar Nigam</option><option>Kashipur Nagar Palika</option><option>Mussoorie Nagar Palika</option><option>Roorkee Nagar Palika</option></select></div><div class="form-group"><label>Property ID / Ward No.</label><input id="pt-propid" type="text" placeholder="e.g. DDN/W03/12345"/></div></div>
+            <div class="form-row full"><div class="form-group"><label>Owner Name</label><input id="pt-owner" type="text" placeholder="Full name as per records"/></div></div>
+            <div id="pt-result" style="display:none;margin-bottom:16px;">
+              <div class="info-card" style="background:var(--surface);border-color:rgba(0,180,216,0.3);padding:18px;">
+                <h3 style="font-size:15px;margin-bottom:12px;">📄 Property Details</h3>
+                <div class="info-row"><span class="label">Property ID</span><span class="value accent">DDN/W03/12345</span></div>
+                <div class="info-row"><span class="label">Owner</span><span class="value">As Entered</span></div>
+                <div class="info-row"><span class="label">Ward</span><span class="value">Ward 3, Rajpur Road</span></div>
+                <div class="info-row"><span class="label">Property Type</span><span class="value">Residential — 120 sq.m</span></div>
+                <div class="info-row"><span class="label">Tax FY 2025-26</span><span class="value gold">₹ 4,200</span></div>
+                <div class="info-row"><span class="label">Arrears</span><span class="value red">₹ 0</span></div>
+                <div class="info-row"><span class="label">Total Due</span><span class="value" style="font-size:16px;font-weight:700;">₹ 4,200</span></div>
+              </div>
+              <button class="btn-primary" onclick="submitPayment('pt')" style="margin-top:14px;width:100%;justify-content:center;">💳 Pay ₹ 4,200 Online</button>
             </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">🏪</div>
-            <div class="service-info">
-              <div class="name">Trade License</div>
-              <div class="desc">Issuance, Renewal, Fee Calculation</div>
+            <div id="pt-success" class="success-card">
+              <div class="success-icon">✅</div>
+              <h3>Payment Successful!</h3>
+              <p>Your property tax has been paid successfully.</p>
+              <div class="ref-num" id="pt-ref"></div>
+              <p>Receipt sent to registered mobile. Download receipt below.</p>
+              <button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track / Download Receipt</button>
             </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">📊</div>
-            <div class="service-info">
-              <div class="name">Municipal Accounting</div>
-              <div class="desc">Double Entry System, Budgeting, Financial Reports</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Infrastructure & Utilities -->
-      <div class="category-card theme-green">
-        <div class="cat-header">
-          <div class="cat-icon">🏗️</div>
-          <div>
-            <h3>Infrastructure & Utilities</h3>
-            <div style="font-size:11px; color:var(--muted);">3 modules</div>
-          </div>
-        </div>
-        <div class="cat-services">
-          <a class="service-item" href="#">
-            <div class="service-icon">💧</div>
-            <div class="service-info">
-              <div class="name">Water & Sewerage</div>
-              <div class="desc">New Connection, Billing, Fault Reporting</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">🏢</div>
-            <div class="service-info">
-              <div class="name">Building Plan (OBPS)</div>
-              <div class="desc">Auto Scrutiny (DCR), NCC Workflow, Structural Safety</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">💡</div>
-            <div class="service-info">
-              <div class="name">Streetlights</div>
-              <div class="desc">Fault Logging, Management</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Public Health & Welfare -->
-      <div class="category-card theme-orange">
-        <div class="cat-header">
-          <div class="cat-icon">🏥</div>
-          <div>
-            <h3>Public Health & Welfare</h3>
-            <div style="font-size:11px; color:var(--muted);">3 modules</div>
-          </div>
-        </div>
-        <div class="cat-services">
-          <a class="service-item" href="#">
-            <div class="service-icon">📜</div>
-            <div class="service-info">
-              <div class="name">Birth & Death Certificates</div>
-              <div class="desc">CRS Integration, QR-Coded Documents</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">📣</div>
-            <div class="service-info">
-              <div class="name">Public Grievance (PGR)</div>
-              <div class="desc">SBM Support, Photo/GPS Logging, SLA Tracking</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">🚛</div>
-            <div class="service-info">
-              <div class="name">Desludging</div>
-              <div class="desc">Request Booking, Vehicle Tracking, STP Monitoring</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Administration & Planning -->
-      <div class="category-card theme-purple">
-        <div class="cat-header">
-          <div class="cat-icon">🏛️</div>
-          <div>
-            <h3>Administration & Planning</h3>
-            <div style="font-size:11px; color:var(--muted);">3 modules</div>
-          </div>
-        </div>
-        <div class="cat-services">
-          <a class="service-item" href="#">
-            <div class="service-icon">🏗️</div>
-            <div class="service-info">
-              <div class="name">Asset Management</div>
-              <div class="desc">Inventory (Land/Buildings), Maintenance</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">🛒</div>
-            <div class="service-info">
-              <div class="name">Street Vending</div>
-              <div class="desc">Biometric Registration, Zone Mapping, Certification</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-          <a class="service-item" href="#">
-            <div class="service-icon">📢</div>
-            <div class="service-info">
-              <div class="name">Advertisement Management</div>
-              <div class="desc">Hoarding Auction, Revenue Tracking</div>
-            </div>
-            <div class="service-arrow">›</div>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ADVANCED FEATURES + NOTICES -->
-<section style="background:var(--surface); border-top:1px solid var(--border);">
-  <div class="section-inner">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;" class="responsive-grid">
-
-      <!-- Advanced Features -->
-      <div>
-        <div class="section-header" style="margin-bottom:24px;">
-          <div class="section-tag">🔬 Data & Advanced Features</div>
-          <h2>Platform Intelligence</h2>
-        </div>
-        <div class="adv-grid">
-          <div class="adv-card">
-            <div class="adv-icon">📊</div>
-            <div class="adv-body">
-              <h3>UMEED National Dashboard</h3>
-              <p>Multi-ULB monitoring and MIS analytics with real-time state-wide performance tracking.</p>
-              <div class="adv-tags"><span class="adv-tag">Multi-ULB</span><span class="adv-tag">MIS Analytics</span><span class="adv-tag">Real-time</span></div>
-            </div>
-          </div>
-          <div class="adv-card">
-            <div class="adv-icon">🗺️</div>
-            <div class="adv-body">
-              <h3>State-Wide GIS Integration</h3>
-              <p>Urban planning and spatial analysis with GIS mapping across all urban local bodies.</p>
-              <div class="adv-tags"><span class="adv-tag">Urban Planning</span><span class="adv-tag">Spatial Analysis</span></div>
-            </div>
-          </div>
-          <div class="adv-card">
-            <div class="adv-icon">📴</div>
-            <div class="adv-body">
-              <h3>Offline & Field Tools</h3>
-              <p>Designed for hilly terrains — works offline and syncs with central data when connected.</p>
-              <div class="adv-tags"><span class="adv-tag">Offline Mode</span><span class="adv-tag">Hilly Terrain</span><span class="adv-tag">Auto Sync</span></div>
-            </div>
-          </div>
-          <div class="adv-card">
-            <div class="adv-icon">🔗</div>
-            <div class="adv-body">
-              <h3>Integration Gateways</h3>
-              <p>Seamless integration with Apuni Sarkar, DigiLocker, and Payment gateways.</p>
-              <div class="adv-tags"><span class="adv-tag">Apuni Sarkar</span><span class="adv-tag">DigiLocker</span><span class="adv-tag">Payment</span></div>
+            <div id="pt-form-area">
+              <button class="btn-primary" onclick="fetchPropertyDetails()" style="width:100%;justify-content:center;">🔍 Fetch Property Details</button>
             </div>
           </div>
         </div>
-
-        <!-- API Layer -->
-        <div class="api-layer">
-          <div class="al-label">↔ Centralized UDD Data Hub & API Layer</div>
-          <div class="api-divider"></div>
-          <div class="api-integrations">
-            <div class="api-chip"><div class="dot"></div> Apuni Sarkar</div>
-            <div class="api-chip"><div class="dot"></div> DigiLocker</div>
-            <div class="api-chip"><div class="dot"></div> Payment Gateway</div>
-            <div class="api-chip"><div class="dot"></div> CRS (Birth/Death)</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Notices & Updates -->
-      <div>
-        <div class="section-header" style="margin-bottom:24px;">
-          <div class="section-tag">📢 News & Notifications</div>
-          <h2>Latest Updates</h2>
-        </div>
-        <div class="notice-panel">
-          <div class="np-header">
-            <h3>Notices & Circulars</h3>
-            <span class="view-all">View All →</span>
-          </div>
-          <div class="notice-list">
-            <div class="notice-item">
-              <div class="ni-top"><span class="ni-badge new">New</span></div>
-              <div class="ni-title">UPYOG Property Tax Assessment — Updated Guidelines for FY 2025-26</div>
-              <div class="ni-date">05 March 2026</div>
-            </div>
-            <div class="notice-item">
-              <div class="ni-top"><span class="ni-badge tender">Tender</span></div>
-              <div class="ni-title">Advertisement Hoarding Auction — Dehradun Nagar Nigam, Batch 12</div>
-              <div class="ni-date">03 March 2026</div>
-            </div>
-            <div class="notice-item">
-              <div class="ni-top"><span class="ni-badge update">Update</span></div>
-              <div class="ni-title">OBPS Building Plan Approval — Revised NCC Workflow Effective Immediately</div>
-              <div class="ni-date">28 Feb 2026</div>
-            </div>
-            <div class="notice-item">
-              <div class="ni-top"><span class="ni-badge new">New</span></div>
-              <div class="ni-title">Street Vending Biometric Registration Drive — 58 Nagar Panchayats</div>
-              <div class="ni-date">25 Feb 2026</div>
-            </div>
-            <div class="notice-item">
-              <div class="ni-top"><span class="ni-badge update">Update</span></div>
-              <div class="ni-title">Desludging Vehicle Tracking System — Enhanced GPS Monitoring Deployed</div>
-              <div class="ni-date">20 Feb 2026</div>
+        <div>
+          <div class="info-card">
+            <h3>ℹ️ About Property Tax</h3>
+            <div class="step-list">
+              <div class="step"><div class="step-num">1</div><div class="step-body"><div class="title">Select your ULB</div><div class="desc">Choose your Nagar Nigam / Palika / Panchayat</div></div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-body"><div class="title">Enter Property ID</div><div class="desc">Find on previous receipts or at ULB office</div></div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-body"><div class="title">Verify &amp; Pay</div><div class="desc">Confirm dues and pay via UPI, Net Banking, Card</div></div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-body"><div class="title">Download Receipt</div><div class="desc">Instant digital receipt with QR code</div></div></div>
             </div>
           </div>
-        </div>
-
-        <div class="notice-panel" style="margin-top:20px;">
-          <div class="np-header">
-            <h3>🎯 Track Your Application</h3>
-          </div>
-          <div style="padding: 20px;">
-            <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">Enter your application number or grievance ID to check the status</p>
-            <div class="search-row">
-              <input class="search-input" type="text" placeholder="Application / Grievance ID..."/>
-              <button class="btn-primary" style="padding:12px 16px; font-size:13px;">Track</button>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-              <div class="quick-link">Property Tax</div>
-              <div class="quick-link">Certificate</div>
-              <div class="quick-link">Building Plan</div>
-              <div class="quick-link">Grievance</div>
-            </div>
+          <div class="info-card">
+            <h3>📋 Fee Schedule</h3>
+            <table class="fee-table"><thead><tr><th>Property Type</th><th>Rate</th></tr></thead><tbody>
+              <tr><td>Residential (upto 60 sq.m)</td><td>₹ 0.50/sq.ft/yr</td></tr>
+              <tr><td>Residential (60–120 sq.m)</td><td>₹ 0.75/sq.ft/yr</td></tr>
+              <tr><td>Commercial</td><td>₹ 1.50/sq.ft/yr</td></tr>
+              <tr><td>Industrial</td><td>₹ 2.00/sq.ft/yr</td></tr>
+            </tbody></table>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
+<!-- ── BIRTH CERTIFICATE ── -->
+<div id="page-birth-cert" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(244,185,66,0.12);">📜</div><div class="ph-text"><div class="breadcrumb">Home › Public Health › <span>Birth Certificate</span></div><h1>Birth Certificate</h1><p>CRS-integrated, QR-coded birth certificates</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div>
+      <div class="info-card">
+        <h3>📝 Apply for Birth Certificate</h3>
+        <div id="bc-form">
+          <div class="form-row"><div class="form-group"><label>Child's Full Name</label><input type="text" placeholder="Full name"/></div><div class="form-group"><label>Date of Birth</label><input type="date"/></div></div>
+          <div class="form-row"><div class="form-group"><label>Father's Name</label><input type="text" placeholder="Father's full name"/></div><div class="form-group"><label>Mother's Name</label><input type="text" placeholder="Mother's full name"/></div></div>
+          <div class="form-row"><div class="form-group"><label>Place of Birth (Hospital)</label><input type="text" placeholder="Hospital / Home"/></div><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option></select></div></div>
+          <div class="form-row"><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div><div class="form-group"><label>Aadhaar No. (Parent)</label><input type="text" placeholder="XXXX-XXXX-XXXX"/></div></div>
+          <div class="form-row full"><div class="form-group"><label>Permanent Address</label><textarea placeholder="Full address with PIN code"></textarea></div></div>
+          <button class="btn-primary" onclick="submitForm('bc')" style="width:100%;justify-content:center;margin-top:4px;">📤 Submit Application</button>
+        </div>
+        <div id="bc-success" class="success-card"><div class="success-icon">🎉</div><h3>Application Submitted!</h3><p>Your birth certificate application has been received. You will be notified via SMS.</p><div class="ref-num" id="bc-ref"></div><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="info-card"><h3>📌 Required Documents</h3><div class="step-list"><div class="step"><div class="step-num">1</div><div class="step-body"><div class="title">Hospital Discharge Card</div><div class="desc">Or birth proof from mid-wife/doctor</div></div></div><div class="step"><div class="step-num">2</div><div class="step-body"><div class="title">Parent's Aadhaar Card</div><div class="desc">Both parents' Aadhaar</div></div></div><div class="step"><div class="step-num">3</div><div class="step-body"><div class="title">Address Proof</div><div class="desc">Ration card or electricity bill</div></div></div></div></div>
+      <div class="info-card"><h3>⏱️ Processing Time</h3><div class="info-row"><span class="label">Normal</span><span class="value green">7 Working Days</span></div><div class="info-row"><span class="label">Tatkaal</span><span class="value gold">3 Working Days</span></div><div class="info-row"><span class="label">Fee (Normal)</span><span class="value">₹ 30</span></div><div class="info-row"><span class="label">Fee (Tatkaal)</span><span class="value">₹ 100</span></div></div>
+    </div>
+  </div></div></div>
+</div>
+
+<!-- ── DEATH CERTIFICATE ── -->
+<div id="page-death-cert" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(155,93,229,0.12);">📋</div><div class="ph-text"><div class="breadcrumb">Home › Public Health › <span>Death Certificate</span></div><h1>Death Certificate</h1><p>CRS-integrated, QR-coded death certificates</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Apply for Death Certificate</h3><div id="dc-form">
+      <div class="form-row"><div class="form-group"><label>Deceased's Full Name</label><input type="text" placeholder="Full name"/></div><div class="form-group"><label>Date of Death</label><input type="date"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Place of Death</label><input type="text" placeholder="Hospital / Home"/></div><div class="form-group"><label>Cause of Death</label><input type="text" placeholder="As per medical certificate"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Applicant Name</label><input type="text" placeholder="Your full name"/></div><div class="form-group"><label>Relation to Deceased</label><select><option>-- Select --</option><option>Spouse</option><option>Son/Daughter</option><option>Father/Mother</option><option>Other</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option></select></div><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div></div>
+      <button class="btn-primary" onclick="submitForm('dc')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Application</button>
+    </div><div id="dc-success" class="success-card"><div class="success-icon">✅</div><h3>Application Submitted!</h3><p>Your death certificate application has been received.</p><div class="ref-num" id="dc-ref"></div><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div></div></div>
+    <div><div class="info-card"><h3>⏱️ Processing</h3><div class="info-row"><span class="label">Normal</span><span class="value green">7 Days</span></div><div class="info-row"><span class="label">Tatkaal</span><span class="value gold">3 Days</span></div><div class="info-row"><span class="label">Fee</span><span class="value">₹ 30</span></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── TRADE LICENSE ── -->
+<div id="page-trade-license" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🏪</div><div class="ph-text"><div class="breadcrumb">Home › Revenue › <span>Trade License</span></div><h1>Trade License</h1><p>New issuance, renewal and fee calculation</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Apply / Renew Trade License</h3><div id="tl-form">
+      <div class="form-row"><div class="form-group"><label>Application Type</label><select><option>New License</option><option>Renewal</option><option>Amendment</option></select></div><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Business Name</label><input type="text" placeholder="Registered business name"/></div><div class="form-group"><label>Type of Business</label><select><option>-- Select --</option><option>Retail Shop</option><option>Restaurant</option><option>Hotel</option><option>Clinic</option><option>Pharmacy</option><option>Manufacturing</option><option>Other</option></select></div></div>
+      <div class="form-row full"><div class="form-group"><label>Business Address</label><textarea placeholder="Full address"></textarea></div></div>
+      <div class="form-row"><div class="form-group"><label>Owner Name</label><input type="text" placeholder="Proprietor / Partner name"/></div><div class="form-group"><label>Aadhaar / PAN</label><input type="text" placeholder="Aadhaar or PAN number"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div><div class="form-group"><label>Annual Turnover (Approx.)</label><select><option>Upto ₹ 5 Lakh</option><option>₹ 5–20 Lakh</option><option>₹ 20–50 Lakh</option><option>₹ 50 Lakh+</option></select></div></div>
+      <button class="btn-primary" onclick="submitForm('tl')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Application</button>
+    </div><div id="tl-success" class="success-card"><div class="success-icon">🎉</div><h3>Application Submitted!</h3><p>Your trade license application is under review.</p><div class="ref-num" id="tl-ref"></div><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div></div></div>
+    <div><div class="info-card"><h3>📋 License Fees</h3><table class="fee-table"><thead><tr><th>Turnover</th><th>Fee/yr</th></tr></thead><tbody><tr><td>Upto ₹5L</td><td>₹ 500</td></tr><tr><td>₹5–20L</td><td>₹ 1,500</td></tr><tr><td>₹20–50L</td><td>₹ 3,000</td></tr><tr><td>₹50L+</td><td>₹ 5,000</td></tr></tbody></table></div><div class="info-card" style="margin-top:18px;"><h3>⏱️ Timeline</h3><div class="info-row"><span class="label">Processing</span><span class="value green">15 Working Days</span></div><div class="info-row"><span class="label">Validity</span><span class="value">1 Year (Renewable)</span></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── GRIEVANCE ── -->
+<div id="page-grievance" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(244,185,66,0.12);">📣</div><div class="ph-text"><div class="breadcrumb">Home › Public Health › <span>Grievance</span></div><h1>Public Grievance (PGR)</h1><p>File, track and escalate civic complaints with SLA tracking</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div>
+      <div class="info-card"><h3>📝 File a Grievance</h3><div id="pgr-form">
+        <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option></select></div><div class="form-group"><label>Category</label><select><option>-- Select --</option><option>Road / Pothole</option><option>Streetlight</option><option>Garbage Collection</option><option>Water Supply</option><option>Sewerage / Drainage</option><option>Encroachment</option><option>Stray Animals</option><option>Building Violation</option><option>Other</option></select></div></div>
+        <div class="form-row full"><div class="form-group"><label>Complaint Description</label><textarea placeholder="Describe the issue in detail..."></textarea></div></div>
+        <div class="form-row full"><div class="form-group"><label>Location / Address</label><input type="text" placeholder="Street name, ward number, landmark"/></div></div>
+        <div class="form-row"><div class="form-group"><label>Your Name</label><input type="text" placeholder="Full name"/></div><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div></div>
+        <div class="form-row full"><div class="form-group"><label>Attach Photo (Optional)</label><input type="file" accept="image/*" style="padding:8px;"/></div></div>
+        <button class="btn-primary" onclick="submitForm('pgr')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Grievance</button>
+      </div><div id="pgr-success" class="success-card"><div class="success-icon">📣</div><h3>Grievance Filed!</h3><p>Your complaint has been registered and assigned to the concerned officer.</p><div class="ref-num" id="pgr-ref"></div><p>Expected resolution within <strong style="color:var(--gold);">7 working days</strong> as per SLA.</p><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div></div>
+    </div>
+    <div>
+      <div class="info-card"><h3>📊 SLA Timeline</h3><table class="fee-table"><thead><tr><th>Category</th><th>SLA</th></tr></thead><tbody><tr><td>Road / Pothole</td><td>15 Days</td></tr><tr><td>Streetlight</td><td>3 Days</td></tr><tr><td>Garbage</td><td>2 Days</td></tr><tr><td>Water Supply</td><td>5 Days</td></tr><tr><td>Sewerage</td><td>7 Days</td></tr><tr><td>Other</td><td>7 Days</td></tr></tbody></table></div>
+      <div class="info-card" style="margin-top:18px;"><h3>🔍 Track Existing Complaint</h3><div class="form-row full" style="margin:0;"><div class="form-group"><label>Grievance ID</label><input id="pgr-track-id" type="text" placeholder="e.g. UPYOG/2026/PGR/1234"/></div></div><button class="btn-secondary" onclick="showPage('track')" style="margin-top:12px;width:100%;justify-content:center;">Track Status</button></div>
+    </div>
+  </div></div></div>
+</div>
+
+<!-- ── BUILDING PLAN ── -->
+<div id="page-building-plan" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(46,196,182,0.12);">🏢</div><div class="ph-text"><div class="breadcrumb">Home › Infrastructure › <span>Building Plan</span></div><h1>Building Plan (OBPS)</h1><p>Online Building Permission System with automatic scrutiny</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Apply for Building Permission</h3><div id="bp-form">
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option></select></div><div class="form-group"><label>Application Type</label><select><option>New Construction</option><option>Extension</option><option>Renovation</option><option>Demolition</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Plot Area (sq.m)</label><input type="number" placeholder="e.g. 200"/></div><div class="form-group"><label>Proposed Built-up Area (sq.m)</label><input type="number" placeholder="e.g. 350"/></div></div>
+      <div class="form-row"><div class="form-group"><label>No. of Floors</label><input type="number" placeholder="e.g. 3"/></div><div class="form-group"><label>Land Use Zone</label><select><option>Residential</option><option>Commercial</option><option>Mixed</option><option>Industrial</option></select></div></div>
+      <div class="form-row full"><div class="form-group"><label>Plot Address</label><textarea placeholder="Full plot address with survey number"></textarea></div></div>
+      <div class="form-row"><div class="form-group"><label>Applicant Name</label><input type="text" placeholder="Owner / Applicant name"/></div><div class="form-group"><label>Architect License No.</label><input type="text" placeholder="Registered architect's CoA no."/></div></div>
+      <button class="btn-primary" onclick="submitForm('bp')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit &amp; Auto-Scrutiny</button>
+    </div><div id="bp-success" class="success-card"><div class="success-icon">🏗️</div><h3>Application Submitted!</h3><p>Your building plan has been submitted for automatic DCR scrutiny.</p><div class="ref-num" id="bp-ref"></div><p>Auto-scrutiny report will be available within <strong style="color:var(--accent);">24 hours</strong>.</p><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div></div></div>
+    <div><div class="info-card"><h3>📋 Fee Calculator</h3><table class="fee-table"><thead><tr><th>Built-up Area</th><th>Fee</th></tr></thead><tbody><tr><td>Upto 50 sq.m</td><td>₹ 500</td></tr><tr><td>50–100 sq.m</td><td>₹ 1,200</td></tr><tr><td>100–300 sq.m</td><td>₹ 3,500</td></tr><tr><td>300 sq.m+</td><td>₹ 8,000</td></tr></tbody></table></div><div class="info-card" style="margin-top:18px;"><h3>⚙️ OBPS Features</h3><div class="step-list"><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Auto DCR Scrutiny</div><div class="desc">Instant check against Development Control Regulations</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">NCC Workflow</div><div class="desc">Integrated NOC from all departments</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Structural Safety</div><div class="desc">Mandatory structural certificate upload</div></div></div></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── WATER CONNECTION ── -->
+<div id="page-water-connection" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(46,196,182,0.12);">💧</div><div class="ph-text"><div class="breadcrumb">Home › Infrastructure › <span>Water &amp; Sewerage</span></div><h1>Water &amp; Sewerage</h1><p>New connections, billing and fault reporting</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Apply for New Water Connection</h3><div id="wc-form">
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option></select></div><div class="form-group"><label>Connection Type</label><select><option>Domestic</option><option>Commercial</option><option>Industrial</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Pipe Size</label><select><option>½ inch</option><option>¾ inch</option><option>1 inch</option><option>2 inch</option></select></div><div class="form-group"><label>Property / House No.</label><input type="text" placeholder="Property number"/></div></div>
+      <div class="form-row full"><div class="form-group"><label>Address</label><textarea placeholder="Full address"></textarea></div></div>
+      <div class="form-row"><div class="form-group"><label>Applicant Name</label><input type="text" placeholder="Owner name"/></div><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div></div>
+      <button class="btn-primary" onclick="submitForm('wc')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Application</button>
+    </div><div id="wc-success" class="success-card"><div class="success-icon">💧</div><h3>Application Submitted!</h3><p>Your water connection request has been registered.</p><div class="ref-num" id="wc-ref"></div><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('track')">Track Status</button></div></div>
+    <div style="margin-top:20px;">
+      <div class="info-card"><h3>⚠️ Report Water Fault</h3>
+        <div class="form-row full" style="margin-bottom:12px;"><div class="form-group"><label>Connection / Consumer No.</label><input type="text" placeholder="Your consumer number"/></div></div>
+        <div class="form-row full" style="margin-bottom:12px;"><div class="form-group"><label>Issue Type</label><select><option>No Water Supply</option><option>Low Pressure</option><option>Pipe Burst / Leakage</option><option>Billing Issue</option><option>Meter Faulty</option></select></div></div>
+        <button class="btn-secondary" onclick="submitForm('wf')" style="width:100%;justify-content:center;">📤 Report Fault</button>
+        <div id="wf-success" class="success-card" style="margin-top:12px;"><div class="success-icon">✅</div><h3>Fault Reported!</h3><div class="ref-num" id="wf-ref"></div></div>
+      </div>
+    </div>
+    </div>
+    <div><div class="info-card"><h3>📋 Connection Fees</h3><table class="fee-table"><thead><tr><th>Type</th><th>Fee</th></tr></thead><tbody><tr><td>Domestic ½"</td><td>₹ 2,500</td></tr><tr><td>Domestic ¾"</td><td>₹ 4,000</td></tr><tr><td>Commercial 1"</td><td>₹ 8,000</td></tr><tr><td>Industrial 2"</td><td>₹ 20,000</td></tr></tbody></table></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── DESLUDGING ── -->
+<div id="page-desludging" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(244,185,66,0.12);">🚛</div><div class="ph-text"><div class="breadcrumb">Home › Public Health › <span>Desludging</span></div><h1>Desludging Services</h1><p>Book a desludging vehicle with real-time GPS tracking</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📅 Book Desludging Vehicle</h3><div id="ds-form">
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option></select></div><div class="form-group"><label>Preferred Date</label><input type="date"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Septic Tank Size (litres)</label><select><option>Upto 1000 L</option><option>1000–3000 L</option><option>3000–5000 L</option><option>5000 L+</option></select></div><div class="form-group"><label>Property Type</label><select><option>Residential</option><option>Commercial</option><option>School / Hospital</option></select></div></div>
+      <div class="form-row full"><div class="form-group"><label>Address for Service</label><textarea placeholder="Full address with landmark"></textarea></div></div>
+      <div class="form-row"><div class="form-group"><label>Contact Name</label><input type="text" placeholder="Your name"/></div><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div></div>
+      <button class="btn-primary" onclick="submitForm('ds')" style="width:100%;justify-content:center;margin-top:8px;">📅 Book Slot</button>
+    </div><div id="ds-success" class="success-card"><div class="success-icon">🚛</div><h3>Booking Confirmed!</h3><p>Your desludging vehicle has been booked. You will receive SMS with vehicle tracking link.</p><div class="ref-num" id="ds-ref"></div><p>Real-time GPS tracking will be available on the day of service.</p></div></div></div>
+    <div><div class="info-card"><h3>📋 Service Charges</h3><table class="fee-table"><thead><tr><th>Tank Size</th><th>Charge</th></tr></thead><tbody><tr><td>Upto 1000 L</td><td>₹ 500</td></tr><tr><td>1000–3000 L</td><td>₹ 1,000</td></tr><tr><td>3000–5000 L</td><td>₹ 1,800</td></tr><tr><td>5000 L+</td><td>₹ 2,500</td></tr></tbody></table></div><div class="info-card" style="margin-top:18px;"><h3>ℹ️ Note</h3><p style="font-size:13px;color:var(--muted);line-height:1.6;">Desludging is mandatory as per SBM norms. Our vehicles are GPS-tracked and connected to the STP Monitoring System.</p></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── STREETLIGHT ── -->
+<div id="page-streetlight" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(244,185,66,0.12);">💡</div><div class="ph-text"><div class="breadcrumb">Home › Infrastructure › <span>Streetlights</span></div><h1>Streetlight Complaints</h1><p>Report non-functional streetlights with location tagging</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>💡 Report Streetlight Fault</h3><div id="sl-form">
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option></select></div><div class="form-group"><label>Fault Type</label><select><option>Light Not Working</option><option>Flickering Light</option><option>Damaged Pole</option><option>Wire Hanging</option><option>Light On During Day</option></select></div></div>
+      <div class="form-row full"><div class="form-group"><label>Location / Street Name</label><input type="text" placeholder="Street name, ward, near landmark"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Pole Number (if visible)</label><input type="text" placeholder="e.g. DDN/SL/4521"/></div><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div></div>
+      <button class="btn-primary" onclick="submitForm('sl')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Complaint</button>
+    </div><div id="sl-success" class="success-card"><div class="success-icon">💡</div><h3>Complaint Registered!</h3><p>Your streetlight complaint has been assigned to the electrical team.</p><div class="ref-num" id="sl-ref"></div><p>Expected resolution: <strong style="color:var(--green);">3 working days</strong></p></div></div></div>
+    <div><div class="info-card"><h3>⏱️ SLA</h3><div class="info-row"><span class="label">Light Not Working</span><span class="value green">3 Days</span></div><div class="info-row"><span class="label">Damaged Pole</span><span class="value gold">7 Days</span></div><div class="info-row"><span class="label">Wire Hanging</span><span class="value red">24 Hours</span></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── STREET VENDING ── -->
+<div id="page-street-vending" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(155,93,229,0.12);">🛒</div><div class="ph-text"><div class="breadcrumb">Home › Administration › <span>Street Vending</span></div><h1>Street Vending Registration</h1><p>Biometric registration, zone mapping &amp; vending certificate</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Register as Street Vendor</h3><div id="sv-form">
+      <div class="form-row"><div class="form-group"><label>Vendor Name</label><input type="text" placeholder="Full name"/></div><div class="form-group"><label>Aadhaar Number</label><input type="text" placeholder="XXXX-XXXX-XXXX"/></div></div>
+      <div class="form-row"><div class="form-group"><label>ULB / Zone</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option></select></div><div class="form-group"><label>Type of Vending</label><select><option>Food &amp; Beverages</option><option>Fruits &amp; Vegetables</option><option>Clothing</option><option>Electronics</option><option>Other</option></select></div></div>
+      <div class="form-row full"><div class="form-group"><label>Vending Location / Area</label><input type="text" placeholder="Street name, ward no."/></div></div>
+      <div class="form-row"><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div><div class="form-group"><label>Bank Account No.</label><input type="text" placeholder="For PM SVANidhi benefits"/></div></div>
+      <p style="font-size:12px;color:var(--muted);margin:8px 0;">Biometric verification will be done at nearest ULB office upon approval.</p>
+      <button class="btn-primary" onclick="submitForm('sv')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Registration</button>
+    </div><div id="sv-success" class="success-card"><div class="success-icon">🛒</div><h3>Registration Submitted!</h3><p>Visit your ULB office for biometric verification within 15 days.</p><div class="ref-num" id="sv-ref"></div></div></div></div>
+    <div><div class="info-card"><h3>🎁 Benefits</h3><div class="step-list"><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Vending Certificate</div><div class="desc">Legal protection against eviction</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">PM SVANidhi Loan</div><div class="desc">₹10,000 working capital loan</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Zone Allocation</div><div class="desc">Designated vending zone with ID card</div></div></div></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── ADVERTISEMENT ── -->
+<div id="page-advertisement" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(155,93,229,0.12);">📢</div><div class="ph-text"><div class="breadcrumb">Home › Administration › <span>Advertisement</span></div><h1>Advertisement Management</h1><p>Hoarding permissions, auctions and revenue tracking</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📝 Apply for Hoarding Permission</h3><div id="ad-form">
+      <div class="form-row"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option></select></div><div class="form-group"><label>Advertisement Type</label><select><option>Hoarding / Billboard</option><option>Wall Painting</option><option>Glow Sign</option><option>Banner / Flex</option><option>LED Screen</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Size (Width × Height in ft)</label><input type="text" placeholder="e.g. 20 × 10"/></div><div class="form-group"><label>Proposed Location</label><input type="text" placeholder="Address / Street name"/></div></div>
+      <div class="form-row"><div class="form-group"><label>Applicant / Company Name</label><input type="text" placeholder="Name or company"/></div><div class="form-group"><label>Duration (Months)</label><select><option>1 Month</option><option>3 Months</option><option>6 Months</option><option>12 Months</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Mobile No.</label><input type="tel" placeholder="10-digit mobile"/></div><div class="form-group"><label>GST Number (if any)</label><input type="text" placeholder="Optional"/></div></div>
+      <button class="btn-primary" onclick="submitForm('ad')" style="width:100%;justify-content:center;margin-top:8px;">📤 Submit Application</button>
+    </div><div id="ad-success" class="success-card"><div class="success-icon">📢</div><h3>Application Submitted!</h3><p>Your advertisement permission application is under review.</p><div class="ref-num" id="ad-ref"></div><button class="btn-secondary" style="margin-top:14px;" onclick="showPage('tenders')">View Current Auctions</button></div></div></div>
+    <div><div class="info-card"><h3>📋 Fee Schedule</h3><table class="fee-table"><thead><tr><th>Type</th><th>Rate/sq.ft/yr</th></tr></thead><tbody><tr><td>Commercial Zone</td><td>₹ 150</td></tr><tr><td>Arterial Road</td><td>₹ 200</td></tr><tr><td>Market Area</td><td>₹ 250</td></tr><tr><td>LED Screen</td><td>₹ 500</td></tr></tbody></table></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── TRACK APPLICATION ── -->
+<div id="page-track" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">📊</div><div class="ph-text"><div class="breadcrumb">Home › <span>Track Application</span></div><h1>Track Your Application</h1><p>Real-time status of all applications and grievances</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div class="form-card" style="max-width:600px;margin:0 auto;">
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:20px;">Enter Reference Number</h3>
+      <div class="form-row full"><div class="form-group"><label>Application / Grievance ID</label><input id="track-id" type="text" placeholder="e.g. UPYOG/2026/PT/12345 or UPYOG/2026/PGR/1234"/></div></div>
+      <div class="quick-links" style="margin-bottom:16px;">
+        <div class="quick-link" onclick="document.getElementById('track-id').value='UPYOG/2026/PT/12345'">Demo: Property Tax</div>
+        <div class="quick-link" onclick="document.getElementById('track-id').value='UPYOG/2026/BC/6789'">Demo: Birth Cert</div>
+        <div class="quick-link" onclick="document.getElementById('track-id').value='UPYOG/2026/PGR/3421'">Demo: Grievance</div>
+        <div class="quick-link" onclick="document.getElementById('track-id').value='UPYOG/2026/BP/9871'">Demo: Building Plan</div>
+      </div>
+      <button class="btn-primary" onclick="trackApplication()" style="width:100%;justify-content:center;">🔍 Track Status</button>
+    </div>
+    <div id="track-result" class="track-result" style="max-width:600px;margin:24px auto 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+        <div><div id="tr-id" style="font-size:13px;color:var(--muted);">Ref ID</div><div id="tr-title" style="font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin:4px 0;"></div><div id="tr-ulb" style="font-size:12px;color:var(--muted);"></div></div>
+        <div id="tr-badge"></div>
+      </div>
+      <div class="track-progress" id="track-progress"></div>
+      <div class="info-card" style="margin-top:20px;padding:18px;">
+        <div class="info-row"><span class="label">Applied On</span><span id="tr-date" class="value"></span></div>
+        <div class="info-row"><span class="label">Last Updated</span><span id="tr-updated" class="value accent"></span></div>
+        <div class="info-row"><span class="label">Assigned To</span><span id="tr-officer" class="value"></span></div>
+        <div class="info-row"><span class="label">Expected Completion</span><span id="tr-eta" class="value gold"></span></div>
+        <div class="info-row" id="tr-remark-row"><span class="label">Remarks</span><span id="tr-remark" class="value" style="text-align:right;max-width:60%;"></span></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ── TENDERS ── -->
+<div id="page-tenders" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(244,185,66,0.12);">📄</div><div class="ph-text"><div class="breadcrumb">Home › <span>Tenders</span></div><h1>Tenders &amp; Auctions</h1><p>Active tenders from all 108 ULBs</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+      <button class="btn-primary" id="t-all" onclick="filterTenders('all')">All</button>
+      <button class="btn-secondary" id="t-infra" onclick="filterTenders('infra')">Infrastructure</button>
+      <button class="btn-secondary" id="t-ad" onclick="filterTenders('ad')">Advertisement</button>
+      <button class="btn-secondary" id="t-supply" onclick="filterTenders('supply')">Supply</button>
+    </div>
+    <div class="tender-grid" id="tender-list"></div>
+  </div></div>
+</div>
+
+<!-- ── NOTICES ── -->
+<div id="page-notices" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">📢</div><div class="ph-text"><h1>Notices &amp; Circulars</h1><p>Official notifications from all ULBs</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div class="notice-panel" style="max-width:800px;">
+      <div class="np-header"><h3>All Notices</h3></div>
+      <div class="notice-list" id="all-notices"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ── ULB LIST ── -->
+<div id="page-ulbs" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(155,93,229,0.12);">🏙️</div><div class="ph-text"><h1>Urban Local Bodies</h1><p>All 108 ULBs across Uttarakhand</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+      <button class="btn-primary" id="u-all" onclick="filterULBs('all')">All (108)</button>
+      <button class="btn-secondary" id="u-nigam" onclick="filterULBs('nigam')">Nagar Nigam (9)</button>
+      <button class="btn-secondary" id="u-palika" onclick="filterULBs('palika')">Nagar Palika (41)</button>
+      <button class="btn-secondary" id="u-panchayat" onclick="filterULBs('panchayat')">Nagar Panchayat (58)</button>
+    </div>
+    <div class="ulb-grid" id="ulb-list"></div>
+  </div></div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="page-dashboard" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">📊</div><div class="ph-text"><h1>UMEED National Dashboard</h1><p>State-wide urban governance monitoring &amp; MIS analytics</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div class="stats-row">
+      <div class="stat-box"><div class="sb-num">108</div><div class="sb-label">Active ULBs</div></div>
+      <div class="stat-box"><div class="sb-num" style="color:var(--green);">2.4L</div><div class="sb-label">Taxes Collected (FY26)</div></div>
+      <div class="stat-box"><div class="sb-num" style="color:var(--gold);">18,432</div><div class="sb-label">Applications Processed</div></div>
+      <div class="stat-box"><div class="sb-num" style="color:var(--purple);">94.2%</div><div class="sb-label">Grievance Resolution Rate</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="info-card"><h3>📈 Revenue Collection — Top ULBs</h3><table class="fee-table"><thead><tr><th>ULB</th><th>Target</th><th>Achieved</th><th>%</th></tr></thead><tbody><tr><td>Dehradun NN</td><td>₹25 Cr</td><td>₹23.4 Cr</td><td style="color:var(--green);">93.6%</td></tr><tr><td>Haldwani NN</td><td>₹15 Cr</td><td>₹13.8 Cr</td><td style="color:var(--green);">92%</td></tr><tr><td>Haridwar NP</td><td>₹8 Cr</td><td>₹7.1 Cr</td><td style="color:var(--gold);">88.7%</td></tr><tr><td>Rishikesh NP</td><td>₹6 Cr</td><td>₹4.9 Cr</td><td style="color:var(--red);">81.6%</td></tr><tr><td>Rudrapur NN</td><td>₹12 Cr</td><td>₹11.5 Cr</td><td style="color:var(--green);">95.8%</td></tr></tbody></table></div>
+      <div class="info-card"><h3>🗂️ Service Delivery Summary</h3><table class="fee-table"><thead><tr><th>Service</th><th>Requests</th><th>Resolved</th></tr></thead><tbody><tr><td>Property Tax</td><td>45,234</td><td style="color:var(--green);">44,890</td></tr><tr><td>Grievances (PGR)</td><td>12,567</td><td style="color:var(--green);">11,832</td></tr><tr><td>Birth Certificates</td><td>8,902</td><td style="color:var(--green);">8,790</td></tr><tr><td>Building Plans</td><td>3,421</td><td style="color:var(--gold);">3,102</td></tr><tr><td>Trade Licenses</td><td>6,834</td><td style="color:var(--green);">6,712</td></tr></tbody></table></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ── GIS ── -->
+<div id="page-gis" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(46,196,182,0.12);">🗺️</div><div class="ph-text"><h1>State-Wide GIS Integration</h1><p>Urban planning and spatial analysis for all 108 ULBs</p></div></div></div>
+  <div class="inner-page"><div class="section-inner">
+    <div class="gis-map-placeholder">
+      <div class="gis-icon">🗺️</div>
+      <div class="gis-label">Uttarakhand Urban GIS Map</div>
+      <div class="gis-sub">108 ULBs · Property Mapping · Zone Planning</div>
+      <button class="btn-primary" style="margin-top:16px;" onclick="alert('GIS Map launches in full-screen mode in the deployed version.')">🚀 Launch GIS Viewer</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;">
+      <div class="info-card"><h3>🏘️ Property GIS</h3><p style="font-size:13px;color:var(--muted);line-height:1.6;">View all properties on map. Identify unmapped properties and update assessments.</p><button class="btn-secondary" style="margin-top:12px;width:100%;justify-content:center;" onclick="showPage('property-tax')">Open Property Map</button></div>
+      <div class="info-card"><h3>🏗️ Zone Planning</h3><p style="font-size:13px;color:var(--muted);line-height:1.6;">View zoning regulations, land use maps and development plans for all ULBs.</p><button class="btn-secondary" style="margin-top:12px;width:100%;justify-content:center;" onclick="showPage('building-plan')">View Zone Maps</button></div>
+      <div class="info-card"><h3>💧 Infrastructure Map</h3><p style="font-size:13px;color:var(--muted);line-height:1.6;">Water pipelines, sewer lines, streetlights and road networks on spatial maps.</p><button class="btn-secondary" style="margin-top:12px;width:100%;justify-content:center;" onclick="showPage('water-connection')">View Infra Map</button></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ── ABOUT ── -->
+<div id="page-about" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🏛️</div><div class="ph-text"><h1>About UPYOG</h1><p>Uttarakhand Urban Development Department</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div style="display:grid;grid-template-columns:2fr 1fr;gap:32px;">
+    <div>
+      <div class="info-card"><h3>🏔️ About the Platform</h3><p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px;">UPYOG (Urban Portal for Yojana and Online Governance) is the state-wide urban governance platform of the Uttarakhand Urban Development Department (UDD), designed to digitize and streamline municipal services across all 108 Urban Local Bodies of Uttarakhand.</p><p style="font-size:14px;color:var(--muted);line-height:1.8;">The platform brings together 12 core modules covering Revenue &amp; Finance, Infrastructure &amp; Utilities, Public Health &amp; Welfare, and Administration &amp; Planning — accessible through a citizen web portal, mobile app, and ULB employee dashboards.</p></div>
+      <div class="info-card" style="margin-top:20px;"><h3>🎯 Key Objectives</h3><div class="step-list"><div class="step"><div class="step-num">1</div><div class="step-body"><div class="title">Digitize Municipal Services</div><div class="desc">End-to-end online services for all civic functions across 108 ULBs</div></div></div><div class="step"><div class="step-num">2</div><div class="step-body"><div class="title">Increase Revenue Collection</div><div class="desc">GIS-based property mapping and online payment integration</div></div></div><div class="step"><div class="step-num">3</div><div class="step-body"><div class="title">Improve Grievance Redressal</div><div class="desc">SLA-bound grievance system with real-time tracking</div></div></div><div class="step"><div class="step-num">4</div><div class="step-body"><div class="title">State-wide Data Hub</div><div class="desc">Centralized UDD data for policy and planning decisions</div></div></div></div></div>
+    </div>
+    <div>
+      <div class="info-card"><h3>📊 Platform Stats</h3><div class="info-row"><span class="label">ULBs Covered</span><span class="value accent">108</span></div><div class="info-row"><span class="label">Core Modules</span><span class="value">12</span></div><div class="info-row"><span class="label">Nagar Nigam</span><span class="value">9</span></div><div class="info-row"><span class="label">Nagar Palika</span><span class="value">41</span></div><div class="info-row"><span class="label">Nagar Panchayat</span><span class="value">58</span></div></div>
+      <div class="info-card" style="margin-top:18px;"><h3>📞 Contact UDD</h3><div class="info-row"><span class="label">Helpline</span><span class="value accent">1800-180-4163</span></div><div class="info-row"><span class="label">Email</span><span class="value" style="font-size:12px;">udd@uk.gov.in</span></div><div class="info-row"><span class="label">Office</span><span class="value" style="font-size:12px;">Dehradun, UK</span></div></div>
+      <div class="info-card" style="margin-top:18px;"><h3>🔗 Quick Links</h3><div class="step-list" style="gap:8px;"><div class="step"><div style="cursor:pointer;font-size:13px;color:var(--accent);" onclick="showPage('ulbs')">→ All ULBs</div></div><div class="step"><div style="cursor:pointer;font-size:13px;color:var(--accent);" onclick="showPage('tenders')">→ Tenders</div></div><div class="step"><div style="cursor:pointer;font-size:13px;color:var(--accent);" onclick="showPage('dashboard')">→ UMEED Dashboard</div></div><div class="step"><div style="cursor:pointer;font-size:13px;color:var(--accent);" onclick="showPage('gis')">→ GIS Portal</div></div></div></div>
+    </div>
+  </div></div></div>
+</div>
+
+<!-- ── ACCOUNTING ── -->
+<div id="page-accounting" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">📊</div><div class="ph-text"><h1>Municipal Accounting</h1><p>Double entry system, budgeting and financial reports</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>🔒 Staff Login Required</h3><p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Municipal Accounting is accessible to authorized ULB finance staff only.</p><button class="btn-primary" onclick="openLoginModal()">👤 Login as ULB Employee</button></div></div>
+    <div><div class="info-card"><h3>📋 Features</h3><div class="step-list"><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Double Entry System</div><div class="desc">Full double-entry bookkeeping</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Budget Tracking</div><div class="desc">Ward-wise and head-wise budget monitoring</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Financial Reports</div><div class="desc">Balance sheet, income statement, trial balance</div></div></div></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── ASSET MGMT ── -->
+<div id="page-asset-mgmt" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(155,93,229,0.12);">🏗️</div><div class="ph-text"><h1>Asset Management</h1><p>Inventory management for land, buildings and infrastructure</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>🔒 Staff Login Required</h3><p style="font-size:14px;color:var(--muted);margin-bottom:16px;">Asset Management is accessible to authorized ULB staff only.</p><button class="btn-primary" onclick="openLoginModal()">👤 Login as ULB Employee</button></div></div>
+    <div><div class="info-card"><h3>📋 Module Features</h3><div class="step-list"><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Land Inventory</div><div class="desc">GIS-tagged land parcels and records</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Building Registry</div><div class="desc">Community halls, offices, markets</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Maintenance Tracking</div><div class="desc">Scheduled and corrective maintenance log</div></div></div></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── APP DOWNLOAD ── -->
+<div id="page-app-download" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(46,196,182,0.12);">📱</div><div class="ph-text"><h1>UPYOG Mobile App</h1><p>Download for iOS and Android. Works offline for hilly terrains.</p></div></div></div>
+  <div class="inner-page"><div class="section-inner" style="max-width:700px;">
+    <div class="info-card" style="text-align:center;padding:48px 32px;">
+      <div style="font-size:80px;margin-bottom:20px;">📱</div>
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--white);margin-bottom:10px;">UPYOG — Urban Services App</h2>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto 32px;">Access all municipal services on the go. The app works offline for hilly terrains and syncs automatically when you reconnect.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="alert('Redirecting to Play Store...')">🤖 Download for Android</button>
+        <button class="btn-secondary" onclick="alert('Redirecting to App Store...')">🍎 Download for iOS</button>
+      </div>
+    </div>
+    <div class="adv-grid" style="margin-top:24px;">
+      <div class="adv-card"><div class="adv-icon">📴</div><div class="adv-body"><h3>Offline Mode</h3><p>Use the app without internet in remote Himalayan areas.</p></div></div>
+      <div class="adv-card"><div class="adv-icon">🔄</div><div class="adv-body"><h3>Auto Sync</h3><p>All data syncs automatically when connectivity is restored.</p></div></div>
+      <div class="adv-card"><div class="adv-icon">📍</div><div class="adv-body"><h3>GPS Logging</h3><p>Field staff can tag grievances and inspections with GPS location.</p></div></div>
+      <div class="adv-card"><div class="adv-icon">🔔</div><div class="adv-body"><h3>Push Notifications</h3><p>Real-time updates on your applications and payments.</p></div></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ── INTEGRATIONS ── -->
+<div id="page-integrations" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🔗</div><div class="ph-text"><h1>Integration Gateways</h1><p>Apuni Sarkar, DigiLocker, and Payment gateway integrations</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="adv-grid">
+    <div class="adv-card"><div class="adv-icon">🏛️</div><div class="adv-body"><h3>Apuni Sarkar</h3><p>Single sign-on and data sharing with Uttarakhand's citizen services portal.</p><div class="adv-tags"><span class="adv-tag">SSO</span><span class="adv-tag">eKYC</span></div></div></div>
+    <div class="adv-card"><div class="adv-icon">📂</div><div class="adv-body"><h3>DigiLocker</h3><p>Fetch and share Aadhaar, PAN, and other documents directly via DigiLocker.</p><div class="adv-tags"><span class="adv-tag">Documents</span><span class="adv-tag">Aadhaar</span></div></div></div>
+    <div class="adv-card"><div class="adv-icon">💳</div><div class="adv-body"><h3>Payment Gateway</h3><p>UPI, Net Banking, Debit/Credit Card payments via RazorPay and BBPS.</p><div class="adv-tags"><span class="adv-tag">UPI</span><span class="adv-tag">BBPS</span><span class="adv-tag">Cards</span></div></div></div>
+    <div class="adv-card"><div class="adv-icon">📜</div><div class="adv-body"><h3>CRS (Civil Registration)</h3><p>Integrated with India's Civil Registration System for birth &amp; death records.</p><div class="adv-tags"><span class="adv-tag">Birth/Death</span><span class="adv-tag">National</span></div></div></div>
+  </div></div></div>
+</div>
+
+<!-- ── HELP / SITEMAP / ACCESSIBILITY ── -->
+<div id="page-help" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">❓</div><div class="ph-text"><h1>Help &amp; Support</h1><p>FAQs, user guides and contact information</p></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div class="inner-cols">
+    <div><div class="info-card"><h3>📞 Contact &amp; Helpline</h3><div class="info-row"><span class="label">Toll-Free Helpline</span><span class="value accent">1800-180-4163</span></div><div class="info-row"><span class="label">Email</span><span class="value">udd@uk.gov.in</span></div><div class="info-row"><span class="label">WhatsApp</span><span class="value">+91 7500000000</span></div><div class="info-row"><span class="label">Office Hours</span><span class="value">Mon–Sat, 9am–5pm</span></div></div>
+    <div class="info-card" style="margin-top:20px;"><h3>📚 Frequently Asked Questions</h3><div class="step-list"><div class="step"><div class="step-num">?</div><div class="step-body"><div class="title">How do I pay property tax online?</div><div class="desc">Go to Property Tax → Enter your Property ID → Verify details → Pay via UPI/Card</div></div></div><div class="step"><div class="step-num">?</div><div class="step-body"><div class="title">How long does a birth certificate take?</div><div class="desc">Normal: 7 working days. Tatkaal: 3 working days.</div></div></div><div class="step"><div class="step-num">?</div><div class="step-body"><div class="title">How do I track my application?</div><div class="desc">Use the Track Application feature with your reference number.</div></div></div><div class="step"><div class="step-num">?</div><div class="step-body"><div class="title">What if my grievance is not resolved?</div><div class="desc">You can escalate to the ULB Commissioner if SLA is breached.</div></div></div></div></div></div>
+    <div><div class="info-card"><h3>🗂️ User Guides</h3><div class="step-list"><div class="step"><div class="step-num">📄</div><div class="step-body"><div class="title" style="cursor:pointer;color:var(--accent);" onclick="alert('PDF guide download...')">Citizen User Manual (PDF)</div></div></div><div class="step"><div class="step-num">📹</div><div class="step-body"><div class="title" style="cursor:pointer;color:var(--accent);" onclick="alert('Tutorial video...')">Video Tutorials</div></div></div><div class="step"><div class="step-num">📱</div><div class="step-body"><div class="title" style="cursor:pointer;color:var(--accent);" onclick="showPage('app-download')">Mobile App Guide</div></div></div></div></div></div>
+  </div></div></div>
+</div>
+<div id="page-sitemap" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">🗂️</div><div class="ph-text"><h1>Sitemap</h1></div></div></div>
+  <div class="inner-page"><div class="section-inner"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+    <div class="info-card"><h3>🏠 Main</h3><div class="step-list" style="gap:6px;"><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('home')">Home</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('about')">About UPYOG</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('ulbs')">All ULBs</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('tenders')">Tenders</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('notices')">Notices</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('help')">Help</span></div></div></div>
+    <div class="info-card"><h3>🧩 Services</h3><div class="step-list" style="gap:6px;"><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('property-tax')">Property Tax</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('trade-license')">Trade License</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('birth-cert')">Birth Certificate</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('death-cert')">Death Certificate</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('grievance')">Grievance</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('building-plan')">Building Plan</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('water-connection')">Water Connection</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('desludging')">Desludging</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('streetlight')">Streetlight</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('street-vending')">Street Vending</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('advertisement')">Advertisement</span></div></div></div>
+    <div class="info-card"><h3>🔬 Advanced</h3><div class="step-list" style="gap:6px;"><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('dashboard')">UMEED Dashboard</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('gis')">GIS Portal</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('track')">Track Application</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('app-download')">Mobile App</span></div><div class="step"><span style="color:var(--accent);cursor:pointer;" onclick="showPage('integrations')">Integrations</span></div></div></div>
+  </div></div></div>
+</div>
+<div id="page-accessibility" class="page">
+  <div class="page-hero"><div class="section-inner"><button class="back-btn" onclick="showPage('home')">← Back</button>&nbsp;&nbsp;<div class="ph-icon" style="background:rgba(0,180,216,0.12);">♿</div><div class="ph-text"><h1>Accessibility</h1><p>UPYOG is built for all citizens of Uttarakhand</p></div></div></div>
+  <div class="inner-page"><div class="section-inner" style="max-width:700px;"><div class="info-card"><h3>♿ Accessibility Features</h3><div class="step-list"><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Screen Reader Compatible</div><div class="desc">All pages are ARIA-labelled and compatible with JAWS and NVDA</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Adjustable Font Size</div><div class="desc">Use A- / A / A+ in the top ribbon to change text size</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">Hindi Language Support</div><div class="desc">Full portal available in Hindi with Devanagari script</div></div></div><div class="step"><div class="step-num">✓</div><div class="step-body"><div class="title">High Contrast Mode</div><div class="desc">Dark theme provides high contrast by default</div></div></div></div></div></div></div>
+</div>
+
+</div><!-- /app -->
+
+<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="fb-logo">
-        <div class="em">🏔️</div>
-        <span>UPYOG</span>
-      </div>
-      <p>UPYOG is the unified urban governance platform of the Uttarakhand Urban Development Department, serving 108 Urban Local Bodies across the state with digital municipal services.</p>
-      <div style="display:flex; gap:10px; margin-top:20px;">
-        <div class="api-chip" style="font-size:11px;"><div class="dot"></div> All Systems Live</div>
-      </div>
+      <div class="fb-logo" onclick="showPage('home')"><div class="em">🏔️</div><span>UPYOG</span></div>
+      <p>State-wide urban governance platform of the Uttarakhand Urban Development Department, serving 108 Urban Local Bodies with digital municipal services.</p>
+      <div style="margin-top:18px;"><div class="api-chip" style="font-size:11px;display:inline-flex;"><div class="dot"></div>All Systems Live</div></div>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
       <ul>
-        <li><a href="#">Property Tax</a></li>
-        <li><a href="#">Trade License</a></li>
-        <li><a href="#">Birth Certificate</a></li>
-        <li><a href="#">Death Certificate</a></li>
-        <li><a href="#">Water Connection</a></li>
-        <li><a href="#">Building Plan</a></li>
-        <li><a href="#">Grievance</a></li>
+        <li><a onclick="showPage('property-tax')">Property Tax</a></li>
+        <li><a onclick="showPage('trade-license')">Trade License</a></li>
+        <li><a onclick="showPage('birth-cert')">Birth Certificate</a></li>
+        <li><a onclick="showPage('death-cert')">Death Certificate</a></li>
+        <li><a onclick="showPage('water-connection')">Water Connection</a></li>
+        <li><a onclick="showPage('building-plan')">Building Plan</a></li>
+        <li><a onclick="showPage('grievance')">Grievance</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Urban Bodies</h4>
       <ul>
-        <li><a href="#">Dehradun</a></li>
-        <li><a href="#">Haridwar</a></li>
-        <li><a href="#">Rishikesh</a></li>
-        <li><a href="#">Haldwani</a></li>
-        <li><a href="#">Rudrapur</a></li>
-        <li><a href="#">Kashipur</a></li>
-        <li><a href="#">All ULBs →</a></li>
+        <li><a onclick="showPage('ulbs','nigam')">Nagar Nigam (9)</a></li>
+        <li><a onclick="showPage('ulbs','palika')">Nagar Palika (41)</a></li>
+        <li><a onclick="showPage('ulbs','panchayat')">Nagar Panchayat (58)</a></li>
+        <li><a onclick="showPage('ulbs')">All ULBs →</a></li>
+        <li><a onclick="showPage('dashboard')">UMEED Dashboard</a></li>
+        <li><a onclick="showPage('gis')">GIS Portal</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Help & Support</h4>
+      <h4>Help &amp; Info</h4>
       <ul>
-        <li><a href="#">User Guide</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Contact ULB</a></li>
-        <li><a href="#">Grievance Portal</a></li>
-        <li><a href="#">RTI</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Accessibility</a></li>
+        <li><a onclick="showPage('help')">User Guide</a></li>
+        <li><a onclick="showPage('help')">FAQs</a></li>
+        <li><a onclick="showPage('tenders')">Tenders</a></li>
+        <li><a onclick="showPage('notices')">Notices</a></li>
+        <li><a onclick="showPage('track')">Track Application</a></li>
+        <li><a onclick="showPage('about')">About UDD</a></li>
+        <li><a onclick="showPage('accessibility')">Accessibility</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <div>© 2026 Uttarakhand Urban Development Department · UPYOG Platform · All Rights Reserved</div>
-    <div>
-      <a href="#">Terms</a> &nbsp;·&nbsp;
-      <a href="#">Privacy</a> &nbsp;·&nbsp;
-      <a href="#">Accessibility</a> &nbsp;·&nbsp;
-      <a href="#">Sitemap</a>
-    </div>
+    <div><a onclick="showPage('about')">Terms</a> &nbsp;·&nbsp; <a onclick="showPage('about')">Privacy</a> &nbsp;·&nbsp; <a onclick="showPage('accessibility')">Accessibility</a> &nbsp;·&nbsp; <a onclick="showPage('sitemap')">Sitemap</a></div>
   </div>
 </footer>
 
-<style>
-  @media (max-width: 900px) {
-    .hero-content { grid-template-columns: 1fr; }
-    .responsive-grid { grid-template-columns: 1fr !important; }
-    .header-stats { display: none; }
-    nav { gap: 2px; }
-    nav a { padding: 6px 10px; font-size: 12px; }
+<!-- ── LOGIN MODAL ── -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <h2>👤 ULB Employee Login</h2>
+    <div id="login-form">
+      <div class="form-row full" style="margin-bottom:14px;"><div class="form-group"><label>ULB</label><select><option>-- Select ULB --</option><option>Dehradun Nagar Nigam</option><option>Haridwar Nagar Palika</option><option>Rishikesh Nagar Palika</option><option>Haldwani Nagar Nigam</option></select></div></div>
+      <div class="form-row full" style="margin-bottom:14px;"><div class="form-group"><label>Employee ID</label><input type="text" placeholder="EMP/DDN/XXXX"/></div></div>
+      <div class="form-row full" style="margin-bottom:20px;"><div class="form-group"><label>Password</label><input type="password" placeholder="••••••••"/></div></div>
+      <button class="btn-primary" onclick="doLogin()" style="width:100%;justify-content:center;">🔐 Login</button>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:14px;cursor:pointer;" onclick="alert('Password reset OTP sent to your registered mobile.')">Forgot Password?</p>
+    </div>
+    <div id="login-success" style="display:none;text-align:center;padding:16px 0;">
+      <div style="font-size:48px;margin-bottom:12px;">✅</div>
+      <h3 style="font-family:'Rajdhani',sans-serif;color:var(--green);font-size:20px;">Login Successful!</h3>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px;">Redirecting to Employee Dashboard...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const TENDERS=[
+  {id:'TEND/2026/DDN/041',title:'Road Resurfacing — Rajpur Road to Clock Tower, Dehradun',ulb:'Dehradun Nagar Nigam',cat:'infra',value:'₹ 42 Lakh',deadline:'20 Mar 2026',status:'Open'},
+  {id:'TEND/2026/DDN/042',title:'Advertisement Hoarding Auction — 12 Premium Sites, Dehradun',ulb:'Dehradun Nagar Nigam',cat:'ad',value:'Base: ₹ 8 Lakh',deadline:'25 Mar 2026',status:'Open'},
+  {id:'TEND/2026/HW/018',title:'Streetlight LED Replacement — Ward 1–15, Haridwar',ulb:'Haridwar Nagar Palika',cat:'infra',value:'₹ 28 Lakh',deadline:'18 Mar 2026',status:'Open'},
+  {id:'TEND/2026/HW/019',title:'Supply of Dustbins — 500 units, Haridwar',ulb:'Haridwar Nagar Palika',cat:'supply',value:'₹ 12 Lakh',deadline:'15 Mar 2026',status:'Closing Soon'},
+  {id:'TEND/2026/RS/010',title:'Sewer Line Laying — Rishikesh New Sector',ulb:'Rishikesh Nagar Palika',cat:'infra',value:'₹ 65 Lakh',deadline:'30 Mar 2026',status:'Open'},
+  {id:'TEND/2026/RS/011',title:'Advertisement Kiosk Auction — Rishikesh Main Market',ulb:'Rishikesh Nagar Palika',cat:'ad',value:'Base: ₹ 3.5 Lakh',deadline:'22 Mar 2026',status:'Open'},
+  {id:'TEND/2026/HN/022',title:'STP Operation &amp; Maintenance — Haldwani',ulb:'Haldwani Nagar Nigam',cat:'infra',value:'₹ 35 Lakh/yr',deadline:'10 Apr 2026',status:'Open'},
+  {id:'TEND/2026/HN/023',title:'Office Stationery Supply — Annual Contract',ulb:'Haldwani Nagar Nigam',cat:'supply',value:'₹ 4 Lakh',deadline:'12 Mar 2026',status:'Closing Soon'},
+];
+const NOTICES=[
+  {badge:'new',title:'UPYOG Property Tax Assessment — Updated Guidelines for FY 2025-26',date:'05 March 2026'},
+  {badge:'tender',title:'Advertisement Hoarding Auction — Dehradun Nagar Nigam, Batch 12',date:'03 March 2026'},
+  {badge:'update',title:'OBPS Building Plan Approval — Revised NCC Workflow Effective Immediately',date:'28 Feb 2026'},
+  {badge:'new',title:'Street Vending Biometric Registration Drive — 58 Nagar Panchayats',date:'25 Feb 2026'},
+  {badge:'update',title:'Desludging Vehicle Tracking System — Enhanced GPS Monitoring Deployed',date:'20 Feb 2026'},
+  {badge:'new',title:'DigiLocker Integration Now Live — Fetch Documents Instantly',date:'15 Feb 2026'},
+  {badge:'update',title:'UMEED Dashboard v2.0 — New Analytics Features Added',date:'10 Feb 2026'},
+  {badge:'tender',title:'STP Operations Tender — Haldwani Nagar Nigam',date:'08 Feb 2026'},
+  {badge:'new',title:'PM SVANidhi Scheme — Online Registration Open for Street Vendors',date:'02 Feb 2026'},
+  {badge:'update',title:'Online Payment Gateway Upgraded — Now Supports UPI, BBPS, RuPay',date:'28 Jan 2026'},
+];
+const ULBS_DATA={
+  nigam:[
+    {name:'Dehradun',type:'nigam',dist:'Dehradun'},{name:'Haldwani',type:'nigam',dist:'Nainital'},
+    {name:'Rudrapur',type:'nigam',dist:'Udham Singh Nagar'},{name:'Kashipur',type:'nigam',dist:'Udham Singh Nagar'},
+    {name:'Haridwar',type:'nigam',dist:'Haridwar'},{name:'Roorkee',type:'nigam',dist:'Haridwar'},
+    {name:'Rishikesh',type:'nigam',dist:'Dehradun'},{name:'Kotdwar',type:'nigam',dist:'Pauri Garhwal'},
+    {name:'Ramnagar',type:'nigam',dist:'Nainital'},
+  ],
+  palika:[
+    {name:'Mussoorie',type:'palika',dist:'Dehradun'},{name:'Vikasnagar',type:'palika',dist:'Dehradun'},
+    {name:'Doiwala',type:'palika',dist:'Dehradun'},{name:'Laksar',type:'palika',dist:'Haridwar'},
+    {name:'Manglaur',type:'palika',dist:'Haridwar'},{name:'Bazpur',type:'palika',dist:'Udham Singh Nagar'},
+    {name:'Jaspur',type:'palika',dist:'Udham Singh Nagar'},{name:'Kichha',type:'palika',dist:'Udham Singh Nagar'},
+    {name:'Srinagar',type:'palika',dist:'Pauri Garhwal'},{name:'Pauri',type:'palika',dist:'Pauri Garhwal'},
+    {name:'Tehri',type:'palika',dist:'Tehri Garhwal'},{name:'Uttarkashi',type:'palika',dist:'Uttarkashi'},
+    {name:'Almora',type:'palika',dist:'Almora'},{name:'Pithoragarh',type:'palika',dist:'Pithoragarh'},
+    {name:'Champawat',type:'palika',dist:'Champawat'},{name:'Bageshwar',type:'palika',dist:'Bageshwar'},
+    {name:'Nainital',type:'palika',dist:'Nainital'},{name:'Bhimtal',type:'palika',dist:'Nainital'},
+    {name:'Ramnagar',type:'palika',dist:'Nainital'},{name:'Tanakpur',type:'palika',dist:'Champawat'},
+    // simplified — showing 20 of 41
+  ],
+  panchayat:[
+    {name:'Chakrata',type:'panchayat',dist:'Dehradun'},{name:'Tyuni',type:'panchayat',dist:'Dehradun'},
+    {name:'Herbertpur',type:'panchayat',dist:'Dehradun'},{name:'Narendra Nagar',type:'panchayat',dist:'Tehri'},
+    {name:'Chamba',type:'panchayat',dist:'Tehri'},{name:'Devprayag',type:'panchayat',dist:'Tehri'},
+    {name:'Badrinath',type:'panchayat',dist:'Chamoli'},{name:'Chamoli',type:'panchayat',dist:'Chamoli'},
+    {name:'Gopeshwar',type:'panchayat',dist:'Chamoli'},{name:'Kedarnath',type:'panchayat',dist:'Rudraprayag'},
+    {name:'Rudraprayag',type:'panchayat',dist:'Rudraprayag'},{name:'Agastyamuni',type:'panchayat',dist:'Rudraprayag'},
+    {name:'Purola',type:'panchayat',dist:'Uttarkashi'},{name:'Barkot',type:'panchayat',dist:'Uttarkashi'},
+    {name:'Yamunotri',type:'panchayat',dist:'Uttarkashi'},{name:'Lansdowne',type:'panchayat',dist:'Pauri'},
+    {name:'Satpuli',type:'panchayat',dist:'Pauri'},{name:'Dwarahat',type:'panchayat',dist:'Almora'},
+    {name:'Ranikhet',type:'panchayat',dist:'Almora'},{name:'Berinag',type:'panchayat',dist:'Pithoragarh'},
+    // simplified — showing 20 of 58
+  ]
+};
+const TRACK_DATA={
+  'UPYOG/2026/PT/12345':{title:'Property Tax Payment',ulb:'Dehradun Nagar Nigam',status:'approved',steps:['Submitted','Verified','Processed','Completed'],currentStep:4,date:'01 March 2026',updated:'05 March 2026',officer:'ULB Revenue Officer, DDN',eta:'Completed',remark:'Payment successful. Receipt generated.'},
+  'UPYOG/2026/BC/6789':{title:'Birth Certificate',ulb:'Haridwar Nagar Palika',status:'processing',steps:['Submitted','Under Review','Verified','Issued'],currentStep:2,date:'02 March 2026',updated:'04 March 2026',officer:'Registrar (B&D), Haridwar',eta:'12 March 2026',remark:'Documents under verification.'},
+  'UPYOG/2026/PGR/3421':{title:'Public Grievance — Road Pothole',ulb:'Rishikesh Nagar Palika',status:'pending',steps:['Registered','Assigned','In Progress','Resolved'],currentStep:3,date:'28 Feb 2026',updated:'03 March 2026',officer:'JE Roads, Rishikesh',eta:'10 March 2026',remark:'Repair work scheduled.'},
+  'UPYOG/2026/BP/9871':{title:'Building Plan Approval',ulb:'Haldwani Nagar Nigam',status:'processing',steps:['Submitted','DCR Scrutiny','NOC Processing','Approved'],currentStep:2,date:'20 Feb 2026',updated:'01 March 2026',officer:'Town Planner, Haldwani',eta:'20 March 2026',remark:'Auto-scrutiny passed. NOC pending.'},
+};
+
+// ── ROUTING ──
+const SERVICE_MAP={
+  'property tax':'property-tax','property':'property-tax','tax':'property-tax',
+  'trade license':'trade-license','trade':'trade-license','license':'trade-license',
+  'birth':'birth-cert','birth certificate':'birth-cert',
+  'death':'death-cert','death certificate':'death-cert',
+  'grievance':'grievance','complaint':'grievance','pgr':'grievance',
+  'building':'building-plan','plan':'building-plan','obps':'building-plan',
+  'water':'water-connection','sewerage':'water-connection','connection':'water-connection',
+  'desludging':'desludging','sludge':'desludging',
+  'streetlight':'streetlight','street light':'streetlight','light':'streetlight',
+  'vending':'street-vending','vendor':'street-vending','street vending':'street-vending',
+  'advertisement':'advertisement','hoarding':'advertisement','banner':'advertisement',
+  'track':'track','status':'track','application':'track',
+  'ulb':'ulbs','nagar':'ulbs','palika':'ulbs','nigam':'ulbs',
+  'dashboard':'dashboard','umeed':'dashboard','analytics':'dashboard',
+  'gis':'gis','map':'gis','spatial':'gis',
+  'tender':'tenders','tenders':'tenders','auction':'tenders',
+  'notice':'notices','circular':'notices',
+  'help':'help','support':'help','contact':'help',
+  'about':'about','info':'about',
+  'app':'app-download','mobile':'app-download',
+  'accounting':'accounting','budget':'accounting',
+  'asset':'asset-mgmt','assets':'asset-mgmt',
+  'integration':'integrations','digilocker':'integrations','payment':'integrations',
+};
+
+function showPage(page, filter){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('page-'+page);
+  if(el){el.classList.add('active');}else{document.getElementById('page-home').classList.add('active');page='home';}
+  // nav active
+  document.querySelectorAll('nav a[id^="nav-"]').forEach(a=>a.classList.remove('active'));
+  const na=document.getElementById('nav-'+page);
+  if(na)na.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // populate dynamic pages
+  if(page==='tenders')renderTenders('all');
+  if(page==='notices')renderNotices();
+  if(page==='ulbs')renderULBs(filter||'all');
+}
+
+// ── SEARCH ──
+function doSearch(){
+  const q=document.getElementById('hero-search').value.toLowerCase().trim();
+  const r=document.getElementById('search-results');
+  if(!q){r.textContent='Please enter a search term.';return;}
+  const match=Object.keys(SERVICE_MAP).find(k=>q.includes(k)||k.includes(q));
+  if(match){r.innerHTML='<span style="color:var(--green)">✓ Found:</span> <span style="color:var(--accent);cursor:pointer;" onclick="showPage(\''+SERVICE_MAP[match]+'\')">'+match.charAt(0).toUpperCase()+match.slice(1)+' →</span>';showPage(SERVICE_MAP[match]);}
+  else{r.innerHTML='<span style="color:var(--muted)">No exact match. Try: </span><span style="color:var(--accent);cursor:pointer;" onclick="showPage(\'services\')">Browse all services →</span>';}
+}
+document.getElementById('hero-search').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+
+// ── TRACKING ──
+function goTrack(){const id=document.getElementById('home-track-id').value.trim();if(id){document.getElementById('track-id').value=id;}showPage('track');}
+function trackApplication(){
+  const id=document.getElementById('track-id').value.trim().toUpperCase();
+  const data=TRACK_DATA[id];
+  const res=document.getElementById('track-result');
+  if(!data){res.style.display='block';res.innerHTML='<p style="color:var(--red);text-align:center;padding:20px;">❌ No record found for <strong>'+id+'</strong>. Please check the ID and try again.</p>';return;}
+  const badges={approved:'<span class="status-badge approved">✓ Completed</span>',processing:'<span class="status-badge processing">⟳ In Progress</span>',pending:'<span class="status-badge pending">⏳ Pending</span>',rejected:'<span class="status-badge rejected">✗ Rejected</span>'};
+  document.getElementById('tr-id').textContent=id;
+  document.getElementById('tr-title').textContent=data.title;
+  document.getElementById('tr-ulb').textContent=data.ulb;
+  document.getElementById('tr-badge').innerHTML=badges[data.status]||'';
+  document.getElementById('tr-date').textContent=data.date;
+  document.getElementById('tr-updated').textContent=data.updated;
+  document.getElementById('tr-officer').textContent=data.officer;
+  document.getElementById('tr-eta').textContent=data.eta;
+  document.getElementById('tr-remark').textContent=data.remark;
+  const prog=document.getElementById('track-progress');
+  prog.innerHTML=data.steps.map((s,i)=>{
+    const cls=i<data.currentStep?'done':i===data.currentStep-1?'active':'';
+    return`<div class="track-step"><div class="ts-dot ${cls}">${i<data.currentStep?'✓':i+1}</div><div class="ts-label ${cls}">${s}</div></div>`;
+  }).join('');
+  res.style.display='block';res.className='track-result show';
+}
+
+// ── FORMS ──
+function submitForm(prefix){
+  const form=document.getElementById(prefix+'-form');
+  const success=document.getElementById(prefix+'-success');
+  const refEl=document.getElementById(prefix+'-ref');
+  if(form)form.style.display='none';
+  if(success){success.classList.add('show');success.style.display='block';}
+  if(refEl){const refs={pt:'RCPT/2026/PT/'+rnd(),bc:'UPYOG/2026/BC/'+rnd(),dc:'UPYOG/2026/DC/'+rnd(),tl:'UPYOG/2026/TL/'+rnd(),pgr:'UPYOG/2026/PGR/'+rnd(),bp:'UPYOG/2026/BP/'+rnd(),wc:'UPYOG/2026/WC/'+rnd(),wf:'UPYOG/2026/WF/'+rnd(),ds:'UPYOG/2026/DS/'+rnd(),sl:'UPYOG/2026/SL/'+rnd(),sv:'UPYOG/2026/SV/'+rnd(),ad:'UPYOG/2026/AD/'+rnd()};refEl.textContent=refs[prefix]||'UPYOG/2026/REF/'+rnd();}
+}
+function rnd(){return Math.floor(10000+Math.random()*90000);}
+
+// Property Tax
+function fetchPropertyDetails(){
+  const ulb=document.getElementById('pt-ulb').value;
+  const pid=document.getElementById('pt-propid').value;
+  if(!ulb||ulb.includes('--')||!pid){alert('Please select a ULB and enter your Property ID.');return;}
+  document.getElementById('pt-result').style.display='block';
+  document.getElementById('pt-form-area').style.display='none';
+}
+function submitPayment(p){
+  if(p==='pt'){
+    document.getElementById('pt-result').style.display='none';
+    const s=document.getElementById('pt-success');s.classList.add('show');s.style.display='block';
+    document.getElementById('pt-ref').textContent='RCPT/2026/PT/'+rnd();
   }
-</style>
+}
+
+// ── TENDERS ──
+function renderTenders(cat){
+  const list=document.getElementById('tender-list');if(!list)return;
+  const filtered=cat==='all'?TENDERS:TENDERS.filter(t=>t.cat===cat);
+  list.innerHTML=filtered.map(t=>`
+    <div class="tender-card">
+      <div class="tc-top"><span class="ni-badge ${t.status==='Open'?'update':'new'}">${t.status}</span><span class="tc-id">${t.id}</span></div>
+      <div class="tc-title">${t.title}</div>
+      <div class="tc-meta"><span>🏙️ <strong>${t.ulb}</strong></span><span>💰 <strong>${t.value}</strong></span><span>📅 Deadline: <strong>${t.deadline}</strong></span></div>
+      <div style="margin-top:12px;display:flex;gap:10px;"><button class="btn-secondary" style="font-size:12px;padding:7px 14px;" onclick="alert('Tender document download initiated for ${t.id}')">📄 Download</button><button class="btn-primary" style="font-size:12px;padding:7px 14px;" onclick="alert('Online bid submission for ${t.id}')">📤 Submit Bid</button></div>
+    </div>`).join('');
+  // highlight active filter button
+  ['all','infra','ad','supply'].forEach(c=>{const b=document.getElementById('t-'+c);if(b){b.className=c===cat?'btn-primary':'btn-secondary';}});
+}
+function filterTenders(cat){renderTenders(cat);}
+
+// ── NOTICES ──
+function renderNotices(){
+  const list=document.getElementById('all-notices');if(!list)return;
+  list.innerHTML=NOTICES.map(n=>`<div class="notice-item"><div class="ni-top"><span class="ni-badge ${n.badge}">${n.badge.charAt(0).toUpperCase()+n.badge.slice(1)}</span></div><div class="ni-title">${n.title}</div><div class="ni-date">${n.date}</div></div>`).join('');
+}
+
+// ── ULBs ──
+function renderULBs(filter){
+  const list=document.getElementById('ulb-list');if(!list)return;
+  let data=[];
+  if(filter==='all'||filter==='nigam')data=[...data,...ULBS_DATA.nigam];
+  if(filter==='all'||filter==='palika')data=[...data,...ULBS_DATA.palika];
+  if(filter==='all'||filter==='panchayat')data=[...data,...ULBS_DATA.panchayat];
+  list.innerHTML=data.map(u=>`<div class="ulb-card" onclick="showPage('services')"><div class="uc-name">${u.name} Nagar ${u.type==='nigam'?'Nigam':u.type==='palika'?'Palika':'Panchayat'}</div><div class="uc-type ${u.type}">${u.type==='nigam'?'Nagar Nigam':u.type==='palika'?'Nagar Palika':'Nagar Panchayat'}</div><div class="uc-dist">📍 ${u.dist} District</div></div>`).join('');
+  ['all','nigam','palika','panchayat'].forEach(f=>{const b=document.getElementById('u-'+f);if(b)b.className=f===filter?'btn-primary':'btn-secondary';});
+}
+
+// ── LOGIN MODAL ──
+function openLoginModal(){document.getElementById('login-modal').classList.add('open');}
+function closeLoginModal(){document.getElementById('login-modal').classList.remove('open');document.getElementById('login-success').style.display='none';document.getElementById('login-form').style.display='block';}
+function doLogin(){document.getElementById('login-form').style.display='none';document.getElementById('login-success').style.display='block';setTimeout(()=>closeLoginModal(),2200);}
+document.getElementById('login-modal').addEventListener('click',function(e){if(e.target===this)closeLoginModal();});
+
+// ── FONT SIZE ──
+let fontSize=16;
+function adjustFont(dir){
+  if(dir===0){fontSize=16;}else{fontSize=Math.max(12,Math.min(22,fontSize+(dir*2)));}
+  document.body.style.fontSize=fontSize+'px';
+}
+
+// ── LANG ──
+function setLang(l){alert(l==='hi'?'हिंदी संस्करण लोड हो रहा है...':'English version is already active.');}
+
+// Init
+showPage('home');
+</script>
 </body>
 </html>
